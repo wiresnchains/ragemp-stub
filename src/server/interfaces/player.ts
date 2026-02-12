@@ -1,3 +1,4 @@
+import type { VehicleSeat } from '../enums';
 import type { Entity } from './entity';
 import type { Vehicle } from './vehicle';
 
@@ -35,7 +36,12 @@ export interface Player extends Entity {
     /**
      * The vehicle that the player is currently sitting in.
      */
-    vehicle?: Vehicle;
+    readonly vehicle?: Vehicle;
+
+    /**
+     * The vehicle seat that the player is currently in.
+     */
+    readonly seat?: VehicleSeat;
 
     /**
      * Health of the player.
@@ -83,4 +89,11 @@ export interface Player extends Entity {
      * @param player Target player.
      */
     isStreamed(player: Player): boolean;
+
+    /**
+     * Places the current player in the given vehicle in the given seat.
+     * @param vehicle Target vehicle.
+     * @param seat Target seat.
+     */
+    placeInVehicle(vehicle: Vehicle, seat: VehicleSeat): void;
 }
