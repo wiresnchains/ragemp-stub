@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "ragemp-atlas/shared": ["../shared"]
+        },
+        "types": ["@ragempcommunity/types-client"]
+    },
+    "include": ["./**/*.ts"]
+}

@@ -1,0 +1,50 @@
+{
+    "name": "ragemp-atlas",
+    "version": "1.0.0",
+    "type": "module",
+    "exports": {
+        "./shared": {
+            "import": "./dist/shared.js",
+            "require": "./dist/shared.cjs",
+            "types": {
+                "import": "./dist/shared.d.mts",
+                "require": "./dist/shared.d.cts"
+            }
+        },
+        "./server": {
+            "import": "./dist/server.js",
+            "require": "./dist/server.cjs",
+            "types": {
+                "import": "./dist/server.d.mts",
+                "require": "./dist/server.d.cts"
+            }
+        },
+        "./client": {
+            "import": "./dist/client.js",
+            "require": "./dist/client.cjs",
+            "types": {
+                "import": "./dist/client.d.mts",
+                "require": "./dist/client.d.cts"
+            }
+        },
+        "./web": {
+            "import": "./dist/web.js",
+            "require": "./dist/web.cjs",
+            "types": {
+                "import": "./dist/web.d.mts",
+                "require": "./dist/web.d.cts"
+            }
+        }
+    },
+    "scripts": {
+        "typecheck": "tsc",
+        "build": "tsdown"
+    },
+    "devDependencies": {
+        "@ragempcommunity/types-cef": "2.1.9",
+        "@ragempcommunity/types-client": "2.1.9",
+        "@ragempcommunity/types-server": "2.1.9",
+        "tsdown": "0.20.3",
+        "typescript": "5.9.3"
+    }
+}
