@@ -2,7 +2,7 @@ import { Vector3 } from 'ragemp-atlas/shared';
 import type { Entity } from '../interfaces/entity';
 
 export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
-    protected entity: T;
+    public entity: T;
 
     public constructor(entity: T) {
         this.entity = entity;
