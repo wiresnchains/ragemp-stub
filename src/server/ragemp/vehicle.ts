@@ -241,27 +241,15 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         return new RagePlayer(this.entity.getOccupant(seat));
     }
 
-    public getOccupants(): Player[] {
+    public getOccupants(): RagePlayer[] {
         return this.entity.getOccupants().map(occupant => new RagePlayer(occupant));
     }
 
-    public setOccupant(seat: VehicleSeat, player: Player): void {
-        const target = mp.players.at(player.id);
-
-        if (target === undefined) {
-            return;
-        }
-
-        this.entity.setOccupant(seat, target);
+    public setOccupant(seat: VehicleSeat, player: RagePlayer): void {
+        this.entity.setOccupant(seat, player.entity);
     }
 
-    public isStreamed(player: Player): boolean {
-        const target = mp.players.at(player.id);
-
-        if (target === undefined) {
-            return false;
-        }
-
-        return this.entity.isStreamed(target);
+    public isStreamed(player: RagePlayer): boolean {
+        return this.entity.isStreamed(player.entity);
     }
 }
