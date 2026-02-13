@@ -45,7 +45,7 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
     }
 
     public get velocity() {
-        return this.entity.velocity;
+        return new Vector3(this.entity.velocity.x, this.entity.velocity.y, this.entity.velocity.z);
     }
 
     public get bodyHealth() {
