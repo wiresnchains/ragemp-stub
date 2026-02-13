@@ -1,6 +1,5 @@
 import type { VehicleSeat } from '../enums';
 import type { Player } from '../interfaces/player';
-import type { Vehicle } from '../interfaces/vehicle';
 import { RageEntity } from './entity';
 import { RageVehicle } from './vehicle';
 
@@ -69,43 +68,19 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
         return this.entity.callProc<T>(eventName, args);
     }
 
-    public startVoiceStreamFor(player: Player): void {
-        const target = mp.players.at(player.id);
-
-        if (target === undefined) {
-            return;
-        }
-
-        target.enableVoiceTo(target);
+    public startVoiceStreamFor(player: RagePlayer): void {
+        this.entity.enableVoiceTo(player.entity);
     }
 
-    public endVoiceStreamFor(player: Player): void {
-        const target = mp.players.at(player.id);
-
-        if (target === undefined) {
-            return;
-        }
-
-        target.disableVoiceTo(target);
+    public endVoiceStreamFor(player: RagePlayer): void {
+        this.entity.disableVoiceTo(player.entity);
     }
 
-    public isStreamed(player: Player): boolean {
-        const target = mp.players.at(player.id);
-
-        if (target === undefined) {
-            return false;
-        }
-
-        return this.entity.isStreamed(target);
+    public isStreamed(player: RagePlayer): boolean {
+        return this.entity.isStreamed(player.entity);
     }
 
-    public placeInVehicle(vehicle: Vehicle, seat: VehicleSeat): void {
-        const target = mp.vehicles.at(vehicle.id);
-
-        if (target === undefined) {
-            return;
-        }
-
-        this.entity.putIntoVehicle(target, seat);
+    public placeInVehicle(vehicle: RageVehicle, seat: VehicleSeat): void {
+        this.entity.putIntoVehicle(vehicle.entity, seat);
     }
 }
