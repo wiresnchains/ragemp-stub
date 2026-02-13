@@ -67,7 +67,7 @@ export interface EntityPool<T extends Entity> {
 
     /**
      * Iterate through all entities in a given dimension.
-     * @param dimension Target dimension
+     * @param dimension Target dimension.
      * @param handler Function that will be called for each entity.
      */
     forEachInDimension(dimension: number, handler: ForEachHandler<T>): void;
@@ -84,7 +84,7 @@ export interface EntityPool<T extends Entity> {
      * Iterate through all entities in a given dimension in a given range.
      * @param position Center point to check from.
      * @param range Range from the center point.
-     * @param dimension Target dimension
+     * @param dimension Target dimension.
      * @param handler Function that will be called for each entity.
      */
     forEachInRange(position: Vector3, range: number, dimension: number, handler: ForEachHandler<T>): void;

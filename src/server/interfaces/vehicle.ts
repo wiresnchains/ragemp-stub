@@ -14,7 +14,7 @@ export interface Vehicle extends Entity {
 
     readonly areHighbeamsActive: boolean;
 
-    readonly sirenActive: boolean;
+    readonly isSirenActive: boolean;
 
     readonly streamedPlayers: Player[];
 
@@ -36,9 +36,9 @@ export interface Vehicle extends Entity {
 
     isMoveable: boolean;
 
-    neonLightsActive: boolean;
+    areNeonLightsActive: boolean;
 
-    taxiLightsActive: boolean;
+    areTaxiLightsActive: boolean;
 
     controlledBy?: Player;
 

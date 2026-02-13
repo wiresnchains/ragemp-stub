@@ -16,32 +16,32 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
         return this.entity.alpha;
     }
 
-    public set alpha(a) {
-        this.entity.alpha = a;
+    public set alpha(alpha: number) {
+        this.entity.alpha = alpha;
     }
 
     public get dimension() {
         return this.entity.dimension;
     }
 
-    public set dimension(d) {
-        this.entity.dimension = d;
+    public set dimension(dimension: number) {
+        this.entity.dimension = dimension;
     }
 
     public get model() {
         return this.entity.model;
     }
 
-    public set model(m) {
-        this.entity.model = m;
+    public set model(model: number) {
+        this.entity.model = model;
     }
 
     public get position() {
         return new Vector3(this.entity.position.x, this.entity.position.y, this.entity.position.z);
     }
 
-    public set position(p) {
-        this.entity.position = new mp.Vector3(p.x, p.y, p.z);
+    public set position(position: Vector3) {
+        this.entity.position = new mp.Vector3(position.x, position.y, position.z);
     }
 
     public dist(to: Vector3): number {
