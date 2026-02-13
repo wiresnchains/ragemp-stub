@@ -1,5 +1,5 @@
 import type { VehicleSeat } from '../enums';
-import type { Entity } from './entity';
+import type { Entity, EntityPool } from './entity';
 import type { Vehicle } from './vehicle';
 
 export interface Player extends Entity {
@@ -96,4 +96,40 @@ export interface Player extends Entity {
      * @param seat Target seat.
      */
     placeInVehicle(vehicle: Vehicle, seat: VehicleSeat): void;
+}
+
+export interface PlayerPool extends EntityPool<Player> {
+    /**
+     * Calls the client-side event for all players.
+     * @param eventName Name of the event.
+     * @param args List of parameters.
+     */
+    call(eventName: string, ...args: any[]): void;
+
+    /**
+     * Calls the client-side event for all players in the given dimension.
+     * @param dimension Target dimension.
+     * @param eventName Name of the event.
+     * @param args List of parameters.
+     */
+    callInDimension(dimension: number, eventName: string, ...args: any[]): void;
+
+    /**
+     * Calls the client-side event for all players in the given range.
+     * @param position Center point to check from.
+     * @param range Range from the center point.
+     * @param eventName Name of the event.
+     * @param args List of parameters.
+     */
+    callInRange(position: Vector3, range: number, eventName: string, ...args: any[]): void;
+
+    /**
+     * Calls the client-side event for all players in the given dimension in the given range.
+     * @param position Center point to check from.
+     * @param range Range from the center point.
+     * @param dimension Target dimension.
+     * @param eventName Name of the event.
+     * @param args List of parameters.
+     */
+    callInRange(position: Vector3, range: number, dimension: number, eventName: string, ...args: any[]): void;
 }
