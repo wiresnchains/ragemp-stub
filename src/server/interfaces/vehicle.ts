@@ -1,5 +1,5 @@
 import type { Vector3 } from 'ragemp-atlas/shared';
-import type { Entity } from './entity';
+import type { Entity, EntityPool } from './entity';
 import type { Player } from './player';
 import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '../enums';
 
@@ -225,4 +225,16 @@ export interface Vehicle extends Entity {
      * @param player Target player.
      */
     isStreamed(player: Player): boolean;
+}
+
+export type VehicleSpawnOptions = Partial<{
+    dimension?: number;
+    heading?: number;
+    numberPlate?: string;
+    isEngineRunning?: boolean;
+    isLocked?: boolean;
+}>;
+
+export interface VehiclePool<T extends Vehicle = Vehicle> extends EntityPool<Vehicle> {
+    spawn(model: string | number, position: Vector3, options?: VehicleSpawnOptions): T;
 }

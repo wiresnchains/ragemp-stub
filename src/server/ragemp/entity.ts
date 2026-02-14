@@ -1,5 +1,5 @@
 import { Vector3 } from 'ragemp-atlas/shared';
-import type { Entity } from '../interfaces/entity';
+import type { Entity, EntityPool, ForEachHandler } from '../interfaces/entity';
 
 export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
     public entity: T;
@@ -50,5 +50,42 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
 
     public destroy(): void {
         this.entity.destroy();
+    }
+}
+
+export class RageEntityPool<
+    TEntity extends EntityMp = EntityMp,
+    TPool extends EntityMpPool<TEntity> = EntityMpPool<TEntity>,
+    TAbstraction extends RageEntity<TEntity> = RageEntity<TEntity>,
+> implements EntityPool<TAbstraction> {
+    protected pool: TPool;
+
+    private getAbstractEntity: (entity: TEntity) => TAbstraction;
+
+    public constructor(pool: TPool, getAbstractEntity: (entity: TEntity) => TAbstraction) {
+        this.pool = pool;
+        this.getAbstractEntity = getAbstractEntity;
+    }
+
+    public get count(): number {
+        return this.pool.length;
+    }
+
+    public get size(): number {
+        return this.pool.size;
+    }
+
+    public get(id: number): TAbstraction | undefined {
+        return this.getAbstractEntity(this.pool.at(id));
+    }
+
+    public forEach(handler: ForEachHandler<TAbstraction>): void;
+    public forEach(dimension: number, handler: ForEachHandler<TAbstraction>): void;
+    public forEach(position: Vector3, range: number, handler: ForEachHandler<TAbstraction>): void;
+    public forEach(position: Vector3, range: number, dimension: number, handler: ForEachHandler<TAbstraction>): void;
+    public forEach(position: unknown, range?: unknown, dimension?: unknown, handler?: unknown): void {}
+
+    public toArray(): TAbstraction[] {
+        return this.pool.toArray().map(this.getAbstractEntity);
     }
 }

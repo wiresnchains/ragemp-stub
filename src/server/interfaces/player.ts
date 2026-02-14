@@ -98,7 +98,7 @@ export interface Player extends Entity {
     placeInVehicle(vehicle: Vehicle, seat: VehicleSeat): void;
 }
 
-export interface PlayerPool extends EntityPool<Player> {
+export interface PlayerPool<T extends Player = Player> extends EntityPool<T> {
     /**
      * Calls the client-side event for all players.
      * @param eventName Name of the event.
@@ -112,7 +112,7 @@ export interface PlayerPool extends EntityPool<Player> {
      * @param eventName Name of the event.
      * @param args List of parameters.
      */
-    callInDimension(dimension: number, eventName: string, ...args: any[]): void;
+    call(dimension: number, eventName: string, ...args: any[]): void;
 
     /**
      * Calls the client-side event for all players in the given range.
@@ -121,7 +121,7 @@ export interface PlayerPool extends EntityPool<Player> {
      * @param eventName Name of the event.
      * @param args List of parameters.
      */
-    callInRange(position: Vector3, range: number, eventName: string, ...args: any[]): void;
+    call(position: Vector3, range: number, eventName: string, ...args: any[]): void;
 
     /**
      * Calls the client-side event for all players in the given dimension in the given range.
@@ -131,5 +131,5 @@ export interface PlayerPool extends EntityPool<Player> {
      * @param eventName Name of the event.
      * @param args List of parameters.
      */
-    callInRange(position: Vector3, range: number, dimension: number, eventName: string, ...args: any[]): void;
+    call(position: Vector3, range: number, dimension: number, eventName: string, ...args: any[]): void;
 }

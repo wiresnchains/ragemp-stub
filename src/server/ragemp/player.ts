@@ -1,6 +1,6 @@
 import type { VehicleSeat } from '../enums';
-import type { Player } from '../interfaces/player';
-import { RageEntity } from './entity';
+import type { Player, PlayerPool } from '../interfaces/player';
+import { RageEntity, RageEntityPool } from './entity';
 import { RageVehicle } from './vehicle';
 
 export class RagePlayer extends RageEntity<PlayerMp> implements Player {
@@ -99,4 +99,25 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
     public placeInVehicle(vehicle: RageVehicle, seat: VehicleSeat): void {
         this.entity.putIntoVehicle(vehicle.entity, seat);
     }
+}
+
+export class RagePlayerPool
+    extends RageEntityPool<PlayerMp, PlayerMpPool, RagePlayer>
+    implements PlayerPool<RagePlayer>
+{
+    public constructor() {
+        super(mp.players, RagePlayer.fromPlayer);
+    }
+
+    public call(eventName: string, ...args: any[]): void;
+    public call(dimension: number, eventName: string, ...args: any[]): void;
+    public call(position: Vector3, range: number, eventName: string, ...args: any[]): void;
+    public call(position: Vector3, range: number, dimension: number, eventName: string, ...args: any[]): void;
+    public call(
+        position: unknown,
+        range?: unknown,
+        dimension?: unknown,
+        eventName?: unknown,
+        ...args: unknown[]
+    ): void {}
 }

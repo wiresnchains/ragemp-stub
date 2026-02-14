@@ -1,6 +1,6 @@
 import { Vector3 } from 'ragemp-atlas/shared';
-import type { Vehicle } from '../interfaces/vehicle';
-import { RageEntity } from './entity';
+import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '../interfaces/vehicle';
+import { RageEntity, RageEntityPool } from './entity';
 import { RagePlayer } from './player';
 import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '../enums';
 
@@ -268,5 +268,26 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
 
     public isStreamed(player: RagePlayer): boolean {
         return this.entity.isStreamed(player.entity);
+    }
+}
+
+export class RageVehiclePool
+    extends RageEntityPool<VehicleMp, VehicleMpPool, RageVehicle>
+    implements VehiclePool<RageVehicle>
+{
+    public constructor() {
+        super(mp.vehicles, RageVehicle.fromVehicle);
+    }
+
+    public spawn(model: string | number, position: Vector3, options: VehicleSpawnOptions = {}): RageVehicle {
+        return RageVehicle.fromVehicle(
+            this.pool.new(model, new mp.Vector3(position.x, position.y, position.z), {
+                dimension: options.dimension,
+                heading: options.heading,
+                numberPlate: options.numberPlate,
+                engine: options.isEngineRunning,
+                locked: options.isLocked,
+            })
+        );
     }
 }
