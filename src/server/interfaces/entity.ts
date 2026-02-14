@@ -1,4 +1,4 @@
-import type { Vector3 } from 'ragemp-atlas/shared';
+import type { ForEachHandler, Vector3 } from 'ragemp-atlas/shared';
 
 export interface Entity {
     /**
@@ -37,8 +37,6 @@ export interface Entity {
      */
     destroy(): void;
 }
-
-export type ForEachHandler<T extends Entity> = (entity: T) => void;
 
 export interface EntityPool<T extends Entity> {
     /**

@@ -1,5 +1,5 @@
-import { Vector3 } from 'ragemp-atlas/shared';
-import type { Entity, EntityPool, ForEachHandler } from '../interfaces/entity';
+import { Vector3, type ForEachHandler } from 'ragemp-atlas/shared';
+import type { Entity, EntityPool } from '../interfaces/entity';
 
 export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
     public entity: T;
@@ -76,7 +76,12 @@ export class RageEntityPool<
     }
 
     public findById(id: number): TAbstraction | undefined {
-        return this.getAbstractEntity(this.pool.at(id));
+        const entity = this.pool.at(id);
+        if (!entity) {
+            return;
+        }
+
+        return this.getAbstractEntity(entity);
     }
 
     public forEach(handler: ForEachHandler<TAbstraction>): void;

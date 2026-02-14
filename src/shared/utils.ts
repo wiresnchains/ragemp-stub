@@ -1,3 +1,5 @@
+export type ForEachHandler<T> = (iterable: T) => void;
+
 export function joaat(plainText: string) {
     const lowerCase = plainText.toLowerCase();
 
@@ -19,16 +21,17 @@ export function joaat(plainText: string) {
 export function createJoaatCache() {
     const cache: Map<string, number> = new Map();
 
-    const _joaat = (plainText: string) => {
-        const cached = cache.get(plainText);
-        if (cached) {
-            return cached;
-        }
+    return {
+        cache,
+        get: (plainText: string) => {
+            const cached = cache.get(plainText);
+            if (cached) {
+                return cached;
+            }
 
-        const hash = joaat(plainText);
-        cache.set(plainText, hash);
-        return hash;
+            const hash = joaat(plainText);
+            cache.set(plainText, hash);
+            return hash;
+        },
     };
-
-    return { cache, joaat: _joaat };
 }
