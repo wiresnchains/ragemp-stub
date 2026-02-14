@@ -6,4 +6,5 @@ export interface AtlasContainer {
     events: EventPool;
     players: PlayerPool;
     vehicles: VehiclePool;
+    joaat(plainText: string): number;
 }

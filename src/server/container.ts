@@ -1,3 +1,4 @@
+import { createJoaatCache } from 'ragemp-atlas/shared';
 import type { AtlasContainer } from './interfaces/container';
 import { RageEventPool } from './ragemp/events';
 import { RagePlayerPool } from './ragemp/player';
@@ -8,6 +9,7 @@ export function createTestContainer(): AtlasContainer {
         events: {} as any,
         players: {} as any,
         vehicles: {} as any,
+        joaat: createJoaatCache().joaat,
     };
 }
 
@@ -16,5 +18,6 @@ export function createRageContainer(): AtlasContainer {
         events: new RageEventPool(),
         players: new RagePlayerPool(),
         vehicles: new RageVehiclePool(),
+        joaat: createJoaatCache().joaat,
     };
 }
