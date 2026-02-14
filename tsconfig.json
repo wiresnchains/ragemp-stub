@@ -15,5 +15,12 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "noEmit": true
-    }
+    },
+    "files": [],
+    "references": [
+        { "path": "./src/shared" },
+        { "path": "./src/server" },
+        { "path": "./src/client" },
+        { "path": "./src/web" }
+    ]
 }
