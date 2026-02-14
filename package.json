@@ -37,7 +37,8 @@
         }
     },
     "scripts": {
-        "typecheck": "cd ./src/client && tsc && cd ../server && tsc && cd ../shared && tsc && cd ../web && tsc",
+        "typecheck": "tsc -b",
+        "typecheck:watch": "tsc -b -w",
         "build": "tsdown"
     },
     "devDependencies": {
