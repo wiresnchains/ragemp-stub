@@ -9,7 +9,7 @@ export default defineConfig({
     },
     outDir: './dist',
     format: ['esm', 'cjs'],
-    dts: true,
+    dts: { build: true },
     clean: true,
     external: ['ragemp-atlas/shared'],
 });
