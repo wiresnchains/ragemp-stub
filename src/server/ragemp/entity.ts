@@ -1,5 +1,5 @@
 import { Vector3, type ForEachHandler } from 'ragemp-atlas/shared';
-import type { Entity, EntityPool } from '../interfaces/entity';
+import type { Entity, EntityPool } from '@/interfaces/entity';
 
 export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
     public entity: T;

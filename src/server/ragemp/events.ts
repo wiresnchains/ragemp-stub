@@ -1,4 +1,4 @@
-import type { EventHandler, EventPool } from '../interfaces/events';
+import type { EventHandler, EventPool } from '@/interfaces/events';
 
 export class RageEventPool implements EventPool {
     public add(eventName: string, handler: EventHandler): void {
