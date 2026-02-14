@@ -57,7 +57,7 @@ export interface EntityPool<T extends Entity> {
      * Find an entity using the unique identifier.
      * @param id The unique identifier of the entity.
      */
-    get(id: number): T | undefined;
+    findById(id: number): T | undefined;
 
     /**
      * Iterate through all entities in the pool.

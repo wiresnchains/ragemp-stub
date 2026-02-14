@@ -75,7 +75,7 @@ export class RageEntityPool<
         return this.pool.size;
     }
 
-    public get(id: number): TAbstraction | undefined {
+    public findById(id: number): TAbstraction | undefined {
         return this.getAbstractEntity(this.pool.at(id));
     }
 
