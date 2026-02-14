@@ -4,6 +4,22 @@ import { RageEntity } from './entity';
 import { RageVehicle } from './vehicle';
 
 export class RagePlayer extends RageEntity<PlayerMp> implements Player {
+    private static playerMap: Map<PlayerMp, RagePlayer> = new Map();
+
+    public static fromPlayer(player: PlayerMp): RagePlayer {
+        let abstractPlayer = this.playerMap.get(player);
+        if (abstractPlayer) {
+            return abstractPlayer;
+        }
+
+        return new RagePlayer(player);
+    }
+
+    private constructor(player: PlayerMp) {
+        super(player);
+        RagePlayer.playerMap.set(player, this);
+    }
+
     public get ip() {
         return this.entity.ip;
     }
@@ -29,7 +45,7 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
     }
 
     public get vehicle() {
-        return new RageVehicle(this.entity.vehicle);
+        return RageVehicle.fromVehicle(this.entity.vehicle);
     }
 
     public get seat() {

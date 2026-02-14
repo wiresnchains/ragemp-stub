@@ -5,6 +5,22 @@ import { RagePlayer } from './player';
 import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '../enums';
 
 export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
+    private static vehicleMap: Map<VehicleMp, RageVehicle> = new Map();
+
+    public static fromVehicle(vehicle: VehicleMp): RageVehicle {
+        let abstractVehicle = this.vehicleMap.get(vehicle);
+        if (abstractVehicle) {
+            return abstractVehicle;
+        }
+
+        return new RageVehicle(vehicle);
+    }
+
+    private constructor(vehicle: VehicleMp) {
+        super(vehicle);
+        RageVehicle.vehicleMap.set(vehicle, this);
+    }
+
     public get engineHealth(): number {
         return this.entity.engineHealth;
     }
@@ -30,7 +46,11 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
     }
 
     public get streamedPlayers(): RagePlayer[] {
-        return this.entity.streamedPlayers.map(player => new RagePlayer(player));
+        return this.entity.streamedPlayers.map(player => RagePlayer.fromPlayer(player));
+    }
+
+    public get occupants(): RagePlayer[] {
+        return this.entity.getOccupants().map(player => RagePlayer.fromPlayer(player));
     }
 
     public get trailer(): RageVehicle | undefined {
@@ -110,7 +130,7 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
     }
 
     public get controlledBy(): RagePlayer | undefined {
-        return this.entity.controller ? new RagePlayer(this.entity.controller) : undefined;
+        return this.entity.controller ? RagePlayer.fromPlayer(this.entity.controller) : undefined;
     }
 
     public set controlledBy(controlledBy: RagePlayer | undefined) {
@@ -136,14 +156,6 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
 
     public set numberPlateType(numberPlateType: VehicleNumberPlateType) {
         this.entity.numberPlateType = numberPlateType as number;
-    }
-
-    public get pearlescentColor(): number {
-        return this.entity.pearlescentColor;
-    }
-
-    public set pearlescentColor(pearlescentColor: number) {
-        this.entity.pearlescentColor = pearlescentColor;
     }
 
     public get dashboardColor(): number {
@@ -182,62 +194,76 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         return this.entity.getPaint(0);
     }
 
-    public set primaryPaint(v) {
-        const primaryColor = this.primaryColor.asRGB();
-        const secondaryColor = this.secondaryColor.asRGB();
-
-        this.entity.setPaint(v, 0, this.secondaryPaint, 0);
-
-        this.primaryColor = primaryColor;
-        this.secondaryColor = secondaryColor;
+    public set primaryPaint(primaryPaint: VehiclePaint) {
+        this.entity.setPaint(primaryPaint, this.primaryColor, this.secondaryPaint, this.secondaryColor);
     }
 
-    public get primaryColor() {
-        return {} as any;
-    }
-
-    public set primaryColor(_) {}
-
-    public get secondaryPaint() {
+    public get secondaryPaint(): VehiclePaint {
         return this.entity.getPaint(1);
     }
 
-    public set secondaryPaint(v) {
-        const primaryColor = this.primaryColor.asRGB();
-        const secondaryColor = this.secondaryColor.asRGB();
+    public set secondaryPaint(secondaryPaint: VehiclePaint) {
+        this.entity.setPaint(this.primaryPaint, this.primaryColor, secondaryPaint, this.secondaryColor);
+    }
 
-        this.entity.setPaint(this.primaryPaint, 0, v, 0);
+    public get primaryColor() {
+        return this.entity.getColor(0);
+    }
 
-        this.primaryColor = primaryColor;
-        this.secondaryColor = secondaryColor;
+    public set primaryColor(primaryColor: number) {
+        this.entity.setColor(primaryColor, this.secondaryColor);
     }
 
     public get secondaryColor() {
-        return {} as any;
+        return this.entity.getColor(1);
     }
 
-    public set secondaryColor(_) {}
-
-    public get neonColor() {
-        return {} as any;
+    public set secondaryColor(secondaryColor: number) {
+        this.entity.setColor(this.primaryColor, secondaryColor);
     }
 
-    public set neonColor(_) {}
+    public get pearlescentColor(): number {
+        return this.entity.pearlescentColor;
+    }
+
+    public set pearlescentColor(pearlescentColor: number) {
+        this.entity.pearlescentColor = pearlescentColor;
+    }
 
     public explode(): void {}
 
     public repair(): void {}
 
     public getOccupant(seat: VehicleSeat): RagePlayer | undefined {
-        return new RagePlayer(this.entity.getOccupant(seat));
-    }
-
-    public getOccupants(): RagePlayer[] {
-        return this.entity.getOccupants().map(occupant => new RagePlayer(occupant));
+        return RagePlayer.fromPlayer(this.entity.getOccupant(seat));
     }
 
     public setOccupant(seat: VehicleSeat, player: RagePlayer): void {
         this.entity.setOccupant(seat, player.entity);
+    }
+
+    public setPrimaryColorRGB(red: number, green: number, blue: number): void {
+        let secondaryColor = this.entity.getVariable('secondaryColor');
+        if (!secondaryColor) {
+            secondaryColor = { red: 0, green: 0, blue: 0 };
+        }
+
+        this.entity.setColorRGB(red, green, blue, secondaryColor.red, secondaryColor.green, secondaryColor.blue);
+        this.entity.setVariable('primaryColor', { red, green, blue });
+    }
+
+    public setSecondaryColorRGB(red: number, green: number, blue: number): void {
+        let primaryColor = this.entity.getVariable('primaryColor');
+        if (!primaryColor) {
+            primaryColor = { red: 0, green: 0, blue: 0 };
+        }
+
+        this.entity.setColorRGB(primaryColor.red, primaryColor.green, primaryColor.blue, red, green, blue);
+        this.entity.setVariable('secondaryColor', { red, green, blue });
+    }
+
+    public setNeonColorRGB(red: number, green: number, blue: number): void {
+        this.entity.setNeonColor(red, green, blue);
     }
 
     public isStreamed(player: RagePlayer): boolean {
