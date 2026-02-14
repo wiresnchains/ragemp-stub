@@ -60,6 +60,11 @@ export interface Vehicle extends Entity {
     readonly velocity: Vector3;
 
     /**
+     * The heading of the vehicle.
+     */
+    heading: number;
+
+    /**
      * The body health of the vehicle.
      */
     bodyHealth: number;

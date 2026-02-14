@@ -65,6 +65,14 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         return new Vector3(this.entity.velocity.x, this.entity.velocity.y, this.entity.velocity.z);
     }
 
+    public get heading(): number {
+        return this.entity.heading;
+    }
+
+    public set heading(heading: number) {
+        // TODO: set rotation? idk which value stands for heading rotation, will figure it out later
+    }
+
     public get bodyHealth(): number {
         return this.entity.bodyHealth;
     }
