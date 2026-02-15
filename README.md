@@ -13,10 +13,10 @@ npm i ragemp-atlas
 Then, create an event registry on your server:
 
 ```ts
-import type { AtlasContainer } from 'ragemp-atlas/server';
+import type { ServerContainer } from 'ragemp-atlas/server';
 import { Vector3 } from 'ragemp-atlas/shared';
 
-function registerEvents(container: AtlasContainer) {
+function registerEvents(container: ServerContainer) {
     container.events.add('playerJoin', player => {
         console.log(player.id, 'has joined the server!');
         player.position = new Vector3(0, 73, 0);
@@ -27,10 +27,10 @@ function registerEvents(container: AtlasContainer) {
 Run it on your real server using:
 
 ```ts
-import { AtlasRageContainer } from 'ragemp-atlas/server';
+import { RageServerContainer } from 'ragemp-atlas/server';
 import { registerEvents } from './events';
 
-const rage = new AtlasRageContainer();
+const rage = new RageServerContainer();
 
 registerEvents(rage);
 ```
@@ -40,10 +40,10 @@ And in your test set-up, you can use a mock container.
 It is designed to run without RAGE:MP runtime, and allows you to mock the entire server entity state for your tests.
 
 ```ts
-import { AtlasMockContainer } from 'ragemp-atlas/server';
+import { MockServerContainer } from 'ragemp-atlas/server';
 import { registerEvents } from './events';
 
-const mock = new AtlasMockContainer();
+const mock = new MockServerContainer();
 
 registerEvents(mock);
 ```
