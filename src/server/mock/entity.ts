@@ -76,15 +76,6 @@ export class MockEntityPool<TEntity extends MockEntity = MockEntity> implements 
     public forEach(position: Vector3, range: number, handler: ForEachHandler<TEntity>): void;
     public forEach(position: Vector3, range: number, dimension: number, handler: ForEachHandler<TEntity>): void;
     public forEach(p1: unknown, p2?: unknown, p3?: unknown, p4?: unknown): void {
-        const isNumber = (v: unknown): v is number => typeof v === 'number';
-        const isHandler = (v: unknown): v is ForEachHandler<TEntity> => typeof v === 'function';
-        const isVector3 = (v: unknown): v is Vector3 =>
-            typeof v === 'object' &&
-            v !== null &&
-            typeof (v as Vector3).x === 'number' &&
-            typeof (v as Vector3).y === 'number' &&
-            typeof (v as Vector3).z === 'number';
-
         if (isHandler(p1)) {
             this.forEachAll(p1);
             return;
