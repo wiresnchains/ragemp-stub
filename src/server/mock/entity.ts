@@ -127,7 +127,15 @@ export class MockEntityPool<TEntity extends MockEntity = MockEntity> implements 
     }
 
     private forEachInRange(position: Vector3, range: number, handler: ForEachHandler<TEntity>): void {
-        // TO-DO
+        const rangeSquared = range * range;
+
+        this.entities.forEach(entity => {
+            if (entity.distSquared(position) > rangeSquared) {
+                return;
+            }
+
+            handler(entity);
+        });
     }
 
     private forEachInDimensionInRange(
@@ -136,6 +144,14 @@ export class MockEntityPool<TEntity extends MockEntity = MockEntity> implements 
         dimension: number,
         handler: ForEachHandler<TEntity>
     ): void {
-        // TO-DO
+        const rangeSquared = range * range;
+
+        this.entities.forEach(entity => {
+            if (entity.dimension !== dimension || entity.distSquared(position) > rangeSquared) {
+                return;
+            }
+
+            handler(entity);
+        });
     }
 }
