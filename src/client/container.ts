@@ -1,11 +1,8 @@
-import type { AtlasContainer } from './interfaces/container';
+import type { ClientContainer } from './interfaces/container';
 import { MockEventPool } from './mock/event';
 import { RageEventPool } from './ragemp/event';
 
-export type MockContainer = AtlasContainer<MockEventPool>;
-export type RageContainer = AtlasContainer<RageEventPool>;
-
-export class AtlasMockContainer implements MockContainer {
+export class MockClientContainer implements ClientContainer<MockEventPool> {
     public events: MockEventPool;
 
     public constructor() {
@@ -13,7 +10,7 @@ export class AtlasMockContainer implements MockContainer {
     }
 }
 
-export class AtlasRageContainer implements RageContainer {
+export class RageClientContainer implements ClientContainer<RageEventPool> {
     public events: RageEventPool;
 
     public constructor() {

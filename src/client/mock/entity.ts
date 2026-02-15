@@ -1,15 +1,15 @@
 import { isNumber, SharedMockEntity, SharedMockEntityPool, Vector3 } from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from '@/interfaces/entity';
-import type { MockContainer } from '@/container';
+import type { MockClientContainer } from '@/container';
 
-export class MockEntity extends SharedMockEntity<MockContainer> implements Entity {
+export class MockEntity extends SharedMockEntity<MockClientContainer> implements Entity {
     public readonly remoteId: number;
     public readonly handle: number;
 
     public rotation: Vector3;
     public visible: boolean;
 
-    public constructor(container: MockContainer, id: number, remoteId: number, handle: number) {
+    public constructor(container: MockClientContainer, id: number, remoteId: number, handle: number) {
         super(container, id);
 
         this.remoteId = remoteId;
@@ -21,14 +21,17 @@ export class MockEntity extends SharedMockEntity<MockContainer> implements Entit
 }
 
 export class MockEntityPool<TEntity extends MockEntity = MockEntity>
-    extends SharedMockEntityPool<MockContainer, TEntity>
+    extends SharedMockEntityPool<MockClientContainer, TEntity>
     implements EntityPool<TEntity>
 {
     public maxStreamedEntityCount: number;
 
     private streamedEntitySet: Set<TEntity>;
 
-    public constructor(container: MockContainer, entityCtor: (container: MockContainer, id: number) => TEntity) {
+    public constructor(
+        container: MockClientContainer,
+        entityCtor: (container: MockClientContainer, id: number) => TEntity
+    ) {
         super(container, entityCtor);
 
         this.maxStreamedEntityCount = 200;
