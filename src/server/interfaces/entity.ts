@@ -33,6 +33,12 @@ export interface Entity {
     dist(to: Vector3): number;
 
     /**
+     * Calculate the squared distance to the given position.
+     * @param to Position to which the distance is calculated.
+     */
+    distSquared(to: Vector3): number;
+
+    /**
      * Destroys the entity.
      */
     destroy(): void;

@@ -48,6 +48,10 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
         return this.entity.dist(new mp.Vector3(to.x, to.y, to.z));
     }
 
+    public distSquared(to: Vector3): number {
+        return this.entity.distSquared(new mp.Vector3(to.x, to.y, to.z));
+    }
+
     public destroy(): void {
         this.entity.destroy();
     }

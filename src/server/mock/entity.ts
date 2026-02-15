@@ -25,11 +25,15 @@ export class MockEntity implements Entity {
     }
 
     public dist(to: Vector3): number {
+        return Math.sqrt(this.distSquared(to));
+    }
+
+    public distSquared(to: Vector3): number {
         const dx = this.position.x - to.x;
         const dy = this.position.y - to.y;
         const dz = this.position.z - to.z;
 
-        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+        return dx * dx + dy * dy + dz * dz;
     }
 
     public destroy(): void {
