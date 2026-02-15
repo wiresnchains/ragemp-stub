@@ -1,9 +1,9 @@
 import { joaat, Vector3 } from 'ragemp-atlas/shared';
 import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '@/interfaces/vehicle';
 import { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
+import type { MockContainer } from '@/container';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';
-import type { MockContainer } from '@/container';
 
 export class MockVehicle extends MockEntity implements Vehicle {
     public readonly engineHealth: number;

@@ -1,7 +1,7 @@
 import type { Vector3 } from 'ragemp-atlas/shared';
+import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
 import type { Entity, EntityPool } from './entity';
 import type { Player } from './player';
-import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '../enums';
 
 export interface Vehicle extends Entity {
     /**

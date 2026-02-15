@@ -1,8 +1,8 @@
 import { Vector3 } from 'ragemp-atlas/shared';
 import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '@/interfaces/vehicle';
+import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
 import { RageEntity, RageEntityPool } from './entity';
 import { RagePlayer } from './player';
-import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
 
 export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
     private static vehicleMap: Map<VehicleMp, RageVehicle> = new Map();

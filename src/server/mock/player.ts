@@ -1,9 +1,9 @@
+import { isNumber, isString, isVector3 } from 'ragemp-atlas/shared';
 import type { Player, PlayerPool } from '@/interfaces/player';
 import type { VehicleSeat } from '@/enums';
 import type { MockContainer } from '@/container';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockVehicle } from './vehicle';
-import { isNumber, isString, isVector3 } from 'ragemp-atlas/shared';
 
 export class MockPlayer extends MockEntity implements Player {
     public readonly ip: string;
