@@ -19,8 +19,12 @@
     "files": [],
     "references": [
         { "path": "./src/shared" },
+        { "path": "./tests/shared" },
         { "path": "./src/server" },
+        { "path": "./tests/server" },
         { "path": "./src/client" },
-        { "path": "./src/web" }
+        { "path": "./tests/client" },
+        { "path": "./src/web" },
+        { "path": "./tests/web" }
     ]
 }
