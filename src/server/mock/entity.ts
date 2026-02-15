@@ -1,4 +1,4 @@
-import { joaat, Vector3, type ForEachHandler } from 'ragemp-atlas/shared';
+import { isHandler, isNumber, isVector3, joaat, Vector3, type ForEachHandler } from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from '@/interfaces/entity';
 import type { MockContainer } from '@/container';
 
@@ -38,9 +38,10 @@ export class MockEntity implements Entity {
 }
 
 export class MockEntityPool<TEntity extends MockEntity = MockEntity> implements EntityPool<TEntity> {
+    protected container: MockContainer;
+
     private entities: Map<number, TEntity>;
     private nextId: number;
-    private container: MockContainer;
     private entityCtor: (container: MockContainer, id: number) => TEntity;
 
     public constructor(container: MockContainer, entityCtor: (container: MockContainer, id: number) => TEntity) {
