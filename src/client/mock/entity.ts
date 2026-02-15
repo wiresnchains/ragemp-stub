@@ -1,6 +1,6 @@
 import { isNumber, SharedMockEntity, SharedMockEntityPool, Vector3 } from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from '@/interfaces/entity';
-import type { MockClientContainer } from '@/container';
+import type { MockClientContainer } from '@/mock/container';
 
 export class MockEntity extends SharedMockEntity<MockClientContainer> implements Entity {
     public readonly remoteId: number;
