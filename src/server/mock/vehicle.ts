@@ -99,11 +99,11 @@ export class MockVehicle extends MockEntity implements Vehicle {
         this.seats.set(seat, player);
     }
 
-    public setPrimaryColorRGB(red: number, green: number, blue: number): void {}
+    public setPrimaryColorRGB(_red: number, _green: number, _blue: number): void {}
 
-    public setSecondaryColorRGB(red: number, green: number, blue: number): void {}
+    public setSecondaryColorRGB(_red: number, _green: number, _blue: number): void {}
 
-    public setNeonColorRGB(red: number, green: number, blue: number): void {}
+    public setNeonColorRGB(_red: number, _green: number, _blue: number): void {}
 
     public isStreamed(player: MockPlayer): boolean {
         return this.streamedPlayersSet.has(player);
