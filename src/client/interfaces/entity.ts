@@ -131,6 +131,15 @@ export interface EntityPool<T extends Entity> {
     forEach(position: Vector3, range: number, handler: ForEachHandler<T>): void;
 
     /**
+     * Iterate through all entities in a given range in a given dimension.
+     * @param position Center point to check from.
+     * @param range Range from the center point.
+     * @param dimension Target dimension.
+     * @param handler Function that will be called for each entity.
+     */
+    forEach(position: Vector3, range: number, dimension: number, handler: ForEachHandler<T>): void;
+
+    /**
      * Converts the pool to an array.
      */
     toArray(): T[];

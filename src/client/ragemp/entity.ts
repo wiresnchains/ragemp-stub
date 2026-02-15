@@ -1,4 +1,4 @@
-import { Vector3, type ForEachHandler } from 'ragemp-atlas/shared';
+import { isHandler, isNumber, isVector3, Vector3, type ForEachHandler } from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from '@/interfaces/entity';
 
 export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
@@ -138,14 +138,50 @@ export class RageEntityPool<
 
     public exists(entity: TAbstraction): boolean;
     public exists(entityId: number): boolean;
-    public exists(entityOrEntityId: TAbstraction | number): boolean {
-        return false;
+    public exists(p1: unknown): boolean {
+        const isAbstraction = (v: unknown): v is TAbstraction => typeof v === 'object';
+
+        if (isNumber(p1)) {
+            return this.pool.exists(p1);
+        }
+
+        if (isAbstraction(p1)) {
+            return this.pool.exists(p1.entity);
+        }
+
+        throw new TypeError('Invalid `exists` overload');
     }
 
     public forEach(handler: ForEachHandler<TAbstraction>): void;
     public forEach(dimension: number, handler: ForEachHandler<TAbstraction>): void;
     public forEach(position: Vector3, range: number, handler: ForEachHandler<TAbstraction>): void;
-    public forEach(position: unknown, range?: unknown, handler?: unknown): void {}
+    public forEach(position: Vector3, range: number, dimension: number, handler: ForEachHandler<TAbstraction>): void;
+    public forEach(p1: unknown, p2?: unknown, p3?: unknown, p4?: unknown): void {
+        if (isHandler(p1)) {
+            this.pool.forEach(p1);
+            return;
+        }
+
+        if (isNumber(p1) && isHandler(p2)) {
+            this.pool.forEachInDimension(p1, p2);
+            return;
+        }
+
+        if (!isVector3(p1)) {
+            throw new TypeError('Expected Vector3 for `position`');
+        }
+
+        if (isNumber(p2) && isHandler(p3)) {
+            this.pool.forEachInRange(new mp.Vector3(p1.x, p1.y, p1.z), p2, p3);
+            return;
+        }
+
+        if (isNumber(p2) && isNumber(p3) && isHandler(p4)) {
+            this.pool.forEachInRange(new mp.Vector3(p1.x, p1.y, p1.z), p2, p3, p4);
+        }
+
+        throw new TypeError('Invalid `forEach` overload');
+    }
 
     public toArray(): TAbstraction[] {
         return this.pool.toArray().map(this.getAbstractEntity);
