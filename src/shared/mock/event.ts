@@ -3,12 +3,10 @@ import type { SharedEventHandler, SharedEventPool } from '../interfaces/event';
 export class SharedMockEventPool<
     TEventHandler extends SharedEventHandler = SharedEventHandler,
 > implements SharedEventPool<TEventHandler> {
-    private events: Map<string, TEventHandler[]>;
-    private rpcEvents: Map<string, TEventHandler>;
+    protected events: Map<string, TEventHandler[]>;
 
     public constructor() {
         this.events = new Map();
-        this.rpcEvents = new Map();
     }
 
     public add(eventName: string, handler: TEventHandler): void {
@@ -20,10 +18,6 @@ export class SharedMockEventPool<
         }
 
         handlers.push(handler);
-    }
-
-    public addRpc(eventName: string, handler: TEventHandler): void {
-        this.rpcEvents.set(eventName, handler);
     }
 
     public call(eventName: string, ...args: any[]): void {
@@ -38,6 +32,5 @@ export class SharedMockEventPool<
 
     public remove(eventName: string): void {
         this.events.delete(eventName);
-        this.rpcEvents.delete(eventName);
     }
 }
