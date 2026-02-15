@@ -1,6 +1,5 @@
 import { joaat, Vector3 } from 'ragemp-atlas/shared';
 import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '@/interfaces/vehicle';
-import type { Player } from '@/interfaces/player';
 import { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';
@@ -13,11 +12,17 @@ export class MockVehicle extends MockEntity implements Vehicle {
     public readonly isHornActive: boolean;
     public readonly areHighbeamsActive: boolean;
     public readonly isSirenActive: boolean;
-    public readonly streamedPlayers: Player[];
-    public readonly occupants: Player[];
     public readonly trailer?: Vehicle | undefined;
     public readonly traileredBy?: Vehicle | undefined;
     public readonly velocity: Vector3;
+
+    public get streamedPlayers(): MockPlayer[] {
+        return Array.from(this.streamedPlayersSet.values());
+    }
+
+    public get occupants(): MockPlayer[] {
+        return Array.from(this.seats.values());
+    }
 
     public heading: number;
     public bodyHealth: number;
@@ -41,8 +46,14 @@ export class MockVehicle extends MockEntity implements Vehicle {
     public secondaryColor: number;
     public pearlescentColor: number;
 
+    private seats: Map<VehicleSeat, MockPlayer>;
+    private streamedPlayersSet: Set<MockPlayer>;
+
     public constructor(container: MockContainer, id: number) {
         super(container, id);
+
+        this.seats = new Map();
+        this.streamedPlayersSet = new Set();
 
         this.engineHealth = 100;
         this.steerAngle = 0;
@@ -50,8 +61,6 @@ export class MockVehicle extends MockEntity implements Vehicle {
         this.isHornActive = false;
         this.areHighbeamsActive = false;
         this.isSirenActive = false;
-        this.streamedPlayers = [];
-        this.occupants = [];
         this.velocity = new Vector3();
 
         this.heading = 0;
@@ -81,10 +90,14 @@ export class MockVehicle extends MockEntity implements Vehicle {
     public repair(): void {}
 
     public getOccupant(seat: VehicleSeat): MockPlayer | undefined {
-        return;
+        return this.seats.get(seat);
     }
 
-    public setOccupant(seat: VehicleSeat, player: MockPlayer): void {}
+    public setOccupant(seat: VehicleSeat, player: MockPlayer): void {
+        player.vehicle = this;
+        player.seat = seat;
+        this.seats.set(seat, player);
+    }
 
     public setPrimaryColorRGB(red: number, green: number, blue: number): void {}
 
@@ -93,7 +106,7 @@ export class MockVehicle extends MockEntity implements Vehicle {
     public setNeonColorRGB(red: number, green: number, blue: number): void {}
 
     public isStreamed(player: MockPlayer): boolean {
-        return false;
+        return this.streamedPlayersSet.has(player);
     }
 }
 
