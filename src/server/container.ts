@@ -18,7 +18,7 @@ export class AtlasMockContainer implements MockContainer {
     private joaatCache: ReturnType<typeof createJoaatCache>;
 
     public constructor() {
-        this.events = new MockEventPool(this);
+        this.events = new MockEventPool();
         this.players = new MockPlayerPool(this, (container, id) => new MockPlayer(container, id));
         this.vehicles = new MockVehiclePool(this, (container, id) => new MockVehicle(container, id));
         this.joaatCache = createJoaatCache();
