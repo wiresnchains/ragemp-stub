@@ -1,5 +1,6 @@
-import type { Entity, EntityPool } from '@/interfaces/entity';
 import { joaat, Vector3, type ForEachHandler } from 'ragemp-atlas/shared';
+import type { Entity, EntityPool } from '@/interfaces/entity';
+import type { MockContainer } from '@/container';
 
 export class MockEntity implements Entity {
     public readonly id: number;
@@ -11,13 +12,16 @@ export class MockEntity implements Entity {
 
     public isDestroyed: boolean;
 
-    public constructor(id: number) {
+    protected container: MockContainer;
+
+    public constructor(container: MockContainer, id: number) {
         this.id = id;
         this.alpha = 255;
         this.dimension = 0;
         this.model = joaat('mp_m_freemode_01');
         this.position = new Vector3(0, 73, 0);
         this.isDestroyed = false;
+        this.container = container;
     }
 
     public dist(to: Vector3): number {
@@ -36,11 +40,13 @@ export class MockEntity implements Entity {
 export class MockEntityPool<TEntity extends MockEntity = MockEntity> implements EntityPool<TEntity> {
     private entities: Map<number, TEntity>;
     private nextId: number;
-    private entityCtor: (id: number) => TEntity;
+    private container: MockContainer;
+    private entityCtor: (container: MockContainer, id: number) => TEntity;
 
-    public constructor(entityCtor: (id: number) => TEntity) {
+    public constructor(container: MockContainer, entityCtor: (container: MockContainer, id: number) => TEntity) {
         this.nextId = 0;
         this.entities = new Map();
+        this.container = container;
         this.entityCtor = entityCtor;
     }
 
@@ -48,7 +54,7 @@ export class MockEntityPool<TEntity extends MockEntity = MockEntity> implements 
         const id = this.nextId;
         this.nextId++;
 
-        const entity = this.entityCtor(id);
+        const entity = this.entityCtor(this.container, id);
         this.entities.set(this.nextId, entity);
         return entity;
     }

@@ -1,5 +1,6 @@
 import type { Player, PlayerPool } from '@/interfaces/player';
 import type { VehicleSeat } from '@/enums';
+import type { MockContainer } from '@/container';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockVehicle } from './vehicle';
 
@@ -17,8 +18,8 @@ export class MockPlayer extends MockEntity implements Player {
     public armour: number;
     public heading: number;
 
-    public constructor(id: number) {
-        super(id);
+    public constructor(container: MockContainer, id: number) {
+        super(container, id);
 
         this.streamedPlayers = [];
         this.voiceListeners = [];
@@ -33,10 +34,12 @@ export class MockPlayer extends MockEntity implements Player {
         this.socialClub = 'WeirdNewbie';
     }
 
-    public call(eventName: string, ...args: any[]): void {}
+    public call(eventName: string, ...args: any[]): void {
+        this.container.events.call(eventName, this, ...args);
+    }
 
     public callRPC<T>(eventName: string, ...args: any[]): Promise<T> {
-        return new Promise(res => res);
+        return this.container.events.callRPC(eventName, this, ...args);
     }
 
     public startVoiceStreamFor(player: MockPlayer): void {}

@@ -4,6 +4,7 @@ import type { Player } from '@/interfaces/player';
 import { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';
+import type { MockContainer } from '@/container';
 
 export class MockVehicle extends MockEntity implements Vehicle {
     public readonly engineHealth: number;
@@ -40,8 +41,8 @@ export class MockVehicle extends MockEntity implements Vehicle {
     public secondaryColor: number;
     public pearlescentColor: number;
 
-    public constructor(id: number) {
-        super(id);
+    public constructor(container: MockContainer, id: number) {
+        super(container, id);
 
         this.engineHealth = 100;
         this.steerAngle = 0;
