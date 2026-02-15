@@ -75,9 +75,71 @@ export class MockEntityPool<TEntity extends MockEntity = MockEntity> implements 
     public forEach(dimension: number, handler: ForEachHandler<TEntity>): void;
     public forEach(position: Vector3, range: number, handler: ForEachHandler<TEntity>): void;
     public forEach(position: Vector3, range: number, dimension: number, handler: ForEachHandler<TEntity>): void;
-    public forEach(position: unknown, range?: unknown, dimension?: unknown, handler?: unknown): void {}
+    public forEach(p1: unknown, p2?: unknown, p3?: unknown, p4?: unknown): void {
+        const isNumber = (v: unknown): v is number => typeof v === 'number';
+        const isHandler = (v: unknown): v is ForEachHandler<TEntity> => typeof v === 'function';
+        const isVector3 = (v: unknown): v is Vector3 =>
+            typeof v === 'object' &&
+            v !== null &&
+            typeof (v as Vector3).x === 'number' &&
+            typeof (v as Vector3).y === 'number' &&
+            typeof (v as Vector3).z === 'number';
+
+        if (isHandler(p1)) {
+            this.forEachAll(p1);
+            return;
+        }
+
+        if (isNumber(p1) && isHandler(p2)) {
+            this.forEachInDimension(p1, p2);
+            return;
+        }
+
+        if (!isVector3(p1)) {
+            throw new TypeError('Expected Vector3 for `position`');
+        }
+
+        if (isNumber(p2) && isHandler(p3)) {
+            this.forEachInRange(p1, p2, p3);
+            return;
+        }
+
+        if (isNumber(p2) && isNumber(p3) && isHandler(p4)) {
+            this.forEachInDimensionInRange(p1, p2, p3, p4);
+            return;
+        }
+
+        throw new TypeError('Invalid forEach overload');
+    }
 
     public toArray(): TEntity[] {
         return Array.from(this.entities.values());
+    }
+
+    private forEachAll(handler: ForEachHandler<TEntity>): void {
+        this.entities.forEach(handler);
+    }
+
+    private forEachInDimension(dimension: number, handler: ForEachHandler<TEntity>): void {
+        this.entities.forEach(entity => {
+            if (entity.dimension !== dimension) {
+                return;
+            }
+
+            handler(entity);
+        });
+    }
+
+    private forEachInRange(position: Vector3, range: number, handler: ForEachHandler<TEntity>): void {
+        // TO-DO
+    }
+
+    private forEachInDimensionInRange(
+        position: Vector3,
+        range: number,
+        dimension: number,
+        handler: ForEachHandler<TEntity>
+    ): void {
+        // TO-DO
     }
 }
