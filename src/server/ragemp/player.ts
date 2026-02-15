@@ -1,3 +1,4 @@
+import { isNumber, isString, isVector3 } from 'ragemp-atlas/shared';
 import type { VehicleSeat } from '@/enums';
 import type { Player, PlayerPool } from '@/interfaces/player';
 import { RageEntity, RageEntityPool } from './entity';
@@ -113,11 +114,41 @@ export class RagePlayerPool
     public call(dimension: number, eventName: string, ...args: any[]): void;
     public call(position: Vector3, range: number, eventName: string, ...args: any[]): void;
     public call(position: Vector3, range: number, dimension: number, eventName: string, ...args: any[]): void;
-    public call(
-        position: unknown,
-        range?: unknown,
-        dimension?: unknown,
-        eventName?: unknown,
-        ...args: unknown[]
-    ): void {}
+    public call(...params: unknown[]): void {
+        if (isString(params[0])) {
+            const [eventName, ...args] = params;
+            this.pool.call(eventName, args);
+            return;
+        }
+
+        if (isNumber(params[0]) && isString(params[1])) {
+            const [dimension, eventName, ...args] = params;
+            this.pool.callInDimension(dimension, eventName, args);
+            return;
+        }
+
+        if (!isVector3(params[0])) {
+            throw new TypeError('Expected Vector3 for `position`');
+        }
+
+        if (isNumber(params[1]) && isString(params[2])) {
+            const [position, range, eventName, ...args] = params;
+            this.pool.callInRange(new mp.Vector3(position.x, position.y, position.z), range, eventName, args);
+            return;
+        }
+
+        if (isNumber(params[1]) && isNumber(params[2]) && isString(params[3])) {
+            const [position, range, dimension, eventName, ...args] = params;
+            this.pool.callInRange(
+                new mp.Vector3(position.x, position.y, position.z),
+                range,
+                dimension,
+                eventName,
+                args
+            );
+            return;
+        }
+
+        throw new TypeError('Invalid call overload');
+    }
 }
