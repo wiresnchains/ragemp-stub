@@ -37,15 +37,19 @@
         }
     },
     "scripts": {
+        "build": "tsdown",
         "typecheck": "tsc -b",
         "typecheck:watch": "tsc -b -w",
-        "build": "tsdown"
+        "test": "vitest run",
+        "test:watch": "vitest"
     },
     "devDependencies": {
         "@ragempcommunity/types-cef": "2.1.9",
         "@ragempcommunity/types-client": "2.1.9",
         "@ragempcommunity/types-server": "2.1.9",
         "tsdown": "0.20.3",
-        "typescript": "5.9.3"
+        "typescript": "5.9.3",
+        "vite-tsconfig-paths": "6.1.1",
+        "vitest": "4.0.18"
     }
 }
