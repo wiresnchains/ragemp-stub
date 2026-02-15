@@ -11,5 +11,5 @@ export default defineConfig({
     format: ['esm', 'cjs'],
     dts: { build: true },
     clean: true,
-    external: ['ragemp-atlas/shared'],
+    external: ['ragemp-atlas/shared', 'ragemp-atlas/server', 'ragemp-atlas/client', 'ragemp-atlas/web'],
 });
