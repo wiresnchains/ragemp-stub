@@ -23,6 +23,7 @@ export class MockEventPool extends SharedMockEventPool implements EventPool {
     public callRemote(_eventName: string, ..._args: any[]): void {}
 
     public callRemoteRpc<T>(_eventName: string, ..._args: any[]): Promise<T> {
+        // TO-DO
         return new Promise(res => res);
     }
 }

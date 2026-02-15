@@ -44,8 +44,8 @@ export class MockPlayer extends MockEntity implements Player {
         this.socialClub = 'WeirdNewbie';
     }
 
-    public call(eventName: string, ...args: any[]): void {
-        this.container.events.call(eventName, this, ...args);
+    public call(_eventName: string, ..._args: any[]): void {
+        // TO-DO
     }
 
     public callRpc<T>(_eventName: string, ..._args: any[]): Promise<T> {
