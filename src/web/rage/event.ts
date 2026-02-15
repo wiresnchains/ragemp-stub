@@ -1,8 +1,7 @@
-import type { EventPool } from '@/interfaces/event';
-import type { SharedEventHandler } from 'ragemp-atlas/shared';
+import type { EventHandler, EventPool } from '@/interfaces/event';
 
 export class RageEventPool implements EventPool {
-    public add(eventName: string, handler: SharedEventHandler): void {
+    public add(eventName: string, handler: EventHandler): void {
         mp.events.add(eventName, handler);
     }
 

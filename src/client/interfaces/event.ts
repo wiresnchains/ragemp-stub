@@ -1,12 +1,14 @@
 import type { SharedEventHandler, SharedEventPool } from 'ragemp-atlas/shared';
 
-export interface EventPool extends SharedEventPool {
+export type EventHandler = SharedEventHandler;
+
+export interface EventPool extends SharedEventPool<EventHandler> {
     /**
      * Registers an event listener using a remote procedure call, expecting to return an answer.
      * @param eventName The name of the event.
      * @param handler The handler that is going to be called when the event is triggered.
      */
-    addRpc(eventName: string, handler: SharedEventHandler): void;
+    addRpc(eventName: string, handler: EventHandler): void;
 
     /**
      * Calls a remote event
