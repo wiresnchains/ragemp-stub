@@ -56,7 +56,7 @@ export interface Entity {
     destroy(): void;
 }
 
-export interface EntityPool<T extends Entity> {
+export interface EntityPool<T extends Entity = Entity> {
     /**
      * Count of total entities in the pool.
      */
