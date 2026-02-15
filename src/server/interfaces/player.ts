@@ -70,7 +70,7 @@ export interface Player extends Entity {
      * @param eventName Name of the event.
      * @param args List of parameters.
      */
-    callRPC<T>(eventName: string, ...args: any[]): Promise<T>;
+    callRpc<T>(eventName: string, ...args: any[]): Promise<T>;
 
     /**
      * Enables the voice stream for the given player.

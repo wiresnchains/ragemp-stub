@@ -48,8 +48,9 @@ export class MockPlayer extends MockEntity implements Player {
         this.container.events.call(eventName, this, ...args);
     }
 
-    public callRPC<T>(eventName: string, ...args: any[]): Promise<T> {
-        return this.container.events.callRPC(eventName, this, ...args);
+    public callRpc<T>(_eventName: string, ..._args: any[]): Promise<T> {
+        // TO-DO
+        return new Promise(res => res);
     }
 
     public startVoiceStreamFor(player: MockPlayer): void {

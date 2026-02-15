@@ -3,7 +3,7 @@ import type { AtlasContainer } from '@/interfaces/container';
 import { MockEventPool } from '@/mock/events';
 import { MockPlayer, MockPlayerPool } from '@/mock/player';
 import { MockVehicle, MockVehiclePool } from '@/mock/vehicle';
-import { RageEventPool } from '@/ragemp/events';
+import { RageEventPool } from '@/ragemp/event';
 import { RagePlayerPool } from '@/ragemp/player';
 import { RageVehiclePool } from '@/ragemp/vehicle';
 

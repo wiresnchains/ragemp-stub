@@ -1,21 +1,26 @@
-import type { Player } from './player';
+export type SharedEventHandler = (...args: any[]) => any;
 
-export type EventHandler<T = void> = (player: Player, ...args: any[]) => T;
-
-export interface EventPool {
+export interface SharedEventPool<TEventHandler extends SharedEventHandler = SharedEventHandler> {
     /**
      * Registers an event listener for the given event name.
      * @param eventName The name of the event.
      * @param handler The handler that is going to be called when the event is triggered.
      */
-    add(eventName: string, handler: EventHandler): void;
+    add(eventName: string, handler: TEventHandler): void;
 
     /**
      * Registers an event listener using a remote procedure call, expecting to return an answer.
      * @param eventName The name of the event.
      * @param handler The handler that is going to be called when the event is triggered.
      */
-    addRPC<T>(eventName: string, handler: EventHandler<T | Promise<T>>): void;
+    addRpc(eventName: string, handler: TEventHandler): void;
+
+    /**
+     * Calls an event listener for the given event name.
+     * @param eventName The name of the event.
+     * @param args Event parameters.
+     */
+    call(eventName: string, ...args: any[]): void;
 
     /**
      * Unregisters the given event.

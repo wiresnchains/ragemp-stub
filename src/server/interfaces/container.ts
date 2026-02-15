@@ -1,4 +1,4 @@
-import type { EventPool } from './events';
+import type { EventPool } from './event';
 import type { PlayerPool } from './player';
 import type { VehiclePool } from './vehicle';
 

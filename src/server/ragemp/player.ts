@@ -81,7 +81,7 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
         this.entity.call(eventName, args);
     }
 
-    public callRPC<T>(eventName: string, ...args: any[]): Promise<T> {
+    public callRpc<T>(eventName: string, ...args: any[]): Promise<T> {
         return this.entity.callProc<T>(eventName, args);
     }
 
