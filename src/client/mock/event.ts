@@ -1,8 +1,8 @@
-import type { EventHandler, EventPool } from '@/interfaces/event';
-import { SharedMockEventPool } from 'ragemp-atlas/shared';
+import { SharedMockEventPool, type SharedEventHandler } from 'ragemp-atlas/shared';
+import type { EventPool } from '@/interfaces/event';
 
-export class MockEventPool extends SharedMockEventPool<EventHandler> implements EventPool {
-    private rpcEvents: Map<string, EventHandler>;
+export class MockEventPool extends SharedMockEventPool implements EventPool {
+    private rpcEvents: Map<string, SharedEventHandler>;
 
     public constructor() {
         super();
@@ -16,7 +16,7 @@ export class MockEventPool extends SharedMockEventPool<EventHandler> implements 
         this.rpcEvents.delete(eventName);
     }
 
-    public addRpc(eventName: string, handler: EventHandler): void {
+    public addRpc(eventName: string, handler: SharedEventHandler): void {
         this.rpcEvents.set(eventName, handler);
     }
 
