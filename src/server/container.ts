@@ -1,5 +1,5 @@
 import { createJoaatCache } from 'ragemp-atlas/shared';
-import type { AtlasContainer } from '@/interfaces/container';
+import type { ServerContainer } from '@/interfaces/container';
 import { MockEventPool } from '@/mock/events';
 import { MockPlayer, MockPlayerPool } from '@/mock/player';
 import { MockVehicle, MockVehiclePool } from '@/mock/vehicle';
@@ -7,10 +7,7 @@ import { RageEventPool } from '@/ragemp/event';
 import { RagePlayerPool } from '@/ragemp/player';
 import { RageVehiclePool } from '@/ragemp/vehicle';
 
-export type MockContainer = AtlasContainer<MockEventPool, MockPlayerPool, MockVehiclePool>;
-export type RageContainer = AtlasContainer<RageEventPool, RagePlayerPool, RageVehiclePool>;
-
-export class AtlasMockContainer implements MockContainer {
+export class MockServerContainer implements ServerContainer<MockEventPool, MockPlayerPool, MockVehiclePool> {
     public events: MockEventPool;
     public players: MockPlayerPool;
     public vehicles: MockVehiclePool;
@@ -29,7 +26,7 @@ export class AtlasMockContainer implements MockContainer {
     }
 }
 
-export class AtlasRageContainer implements RageContainer {
+export class RageServerContainer implements ServerContainer<RageEventPool, RagePlayerPool, RageVehiclePool> {
     public events: RageEventPool;
     public players: RagePlayerPool;
     public vehicles: RageVehiclePool;

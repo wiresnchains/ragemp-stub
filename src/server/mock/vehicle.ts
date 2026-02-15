@@ -1,7 +1,7 @@
 import { joaat, Vector3 } from 'ragemp-atlas/shared';
 import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '@/interfaces/vehicle';
 import { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
-import type { MockContainer } from '@/container';
+import type { MockServerContainer } from '@/container';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';
 
@@ -49,7 +49,7 @@ export class MockVehicle extends MockEntity implements Vehicle {
     private seats: Map<VehicleSeat, MockPlayer>;
     private streamedPlayersSet: Set<MockPlayer>;
 
-    public constructor(container: MockContainer, id: number) {
+    public constructor(container: MockServerContainer, id: number) {
         super(container, id);
 
         this.seats = new Map();

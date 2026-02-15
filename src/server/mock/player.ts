@@ -1,7 +1,7 @@
 import { isNumber, isString, isVector3 } from 'ragemp-atlas/shared';
 import type { Player, PlayerPool } from '@/interfaces/player';
 import type { VehicleSeat } from '@/enums';
-import type { MockContainer } from '@/container';
+import type { MockServerContainer } from '@/container';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockVehicle } from './vehicle';
 
@@ -28,7 +28,7 @@ export class MockPlayer extends MockEntity implements Player {
     private streamedPlayersSet: Set<MockPlayer>;
     private voiceListenersSet: Set<MockPlayer>;
 
-    public constructor(container: MockContainer, id: number) {
+    public constructor(container: MockServerContainer, id: number) {
         super(container, id);
 
         this.streamedPlayersSet = new Set();

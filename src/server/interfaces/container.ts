@@ -2,7 +2,7 @@ import type { EventPool } from './event';
 import type { PlayerPool } from './player';
 import type { VehiclePool } from './vehicle';
 
-export interface AtlasContainer<
+export interface ServerContainer<
     TEvents extends EventPool = EventPool,
     TPlayers extends PlayerPool = PlayerPool,
     TVehicles extends VehiclePool = VehiclePool,
