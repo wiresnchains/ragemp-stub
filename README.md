@@ -1,6 +1,6 @@
 # ragemp-atlas
 
-An abstraction layer over [RAGE:MP API](https://rage.mp/) that allows you to mock objects for unit testing.
+An abstraction layer over [RAGE:MP API](https://wiki.rage.mp/wiki/Main_Page) that allows you to mock objects for unit testing.
 
 ## Quickstart
 
@@ -37,7 +37,7 @@ registerEvents(rage);
 
 And in your test set-up, you can use a mock container.
 
-It is designed to run with no RAGE:MP runtime, and allows you to mock the entire entity state for your tests.
+It is designed to run without RAGE:MP runtime, and allows you to mock the entire server entity state for your tests.
 
 ```ts
 import { AtlasMockContainer } from 'ragemp-atlas/server';
