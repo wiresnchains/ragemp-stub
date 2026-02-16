@@ -50,6 +50,7 @@ export class MockVehicle extends MockEntity implements Vehicle {
     public suspensionMod: VehicleSuspensionType = VehicleSuspensionType.STANDARD;
     public armorMod: VehicleArmorType = VehicleArmorType.NONE;
     public windowTintMod: VehicleWindowTintType = VehicleWindowTintType.NONE;
+    public hasTurboMod: boolean = false;
     public boostMod: VehicleBoostType = VehicleBoostType.NONE;
     public numberPlate: string = '';
     public numberPlateType: VehicleNumberPlateType = VehicleNumberPlateType.BLUE_ON_WHITE;

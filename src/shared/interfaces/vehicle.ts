@@ -138,6 +138,11 @@ export interface SharedVehicle extends SharedEntity {
     windowTintMod: VehicleWindowTintType;
 
     /**
+     * Whether or not the vehicle has turbo modification installed.
+     */
+    hasTurboMod: boolean;
+
+    /**
      * Boost modification of the vehicle.
      */
     boostMod: VehicleBoostType;
