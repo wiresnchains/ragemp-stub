@@ -13,9 +13,10 @@ import {
     Vector3,
     Color,
     type SharedPed,
+    type VehicleSpawnOptions,
 } from 'ragemp-atlas/shared';
-import type { Vehicle } from '@/interfaces/vehicle';
-import { RageEntity } from './entity';
+import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
+import { RageEntity, RageEntityPool } from './entity';
 import { RagePlayer } from './player';
 
 export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
@@ -346,10 +347,7 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
     }
 }
 
-/*export class RageVehiclePool
-    extends RageEntityPool<VehicleMp, VehicleMpPool, RageVehicle>
-    implements VehiclePool<RageVehicle>
-{
+export class RageVehiclePool extends RageEntityPool<VehicleMp, VehicleMpPool, RageVehicle> implements VehiclePool {
     public constructor() {
         super(mp.vehicles, RageVehicle.fromVehicle);
     }
@@ -361,8 +359,8 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
                 heading: options.heading,
                 numberPlate: options.numberPlate,
                 engine: options.isEngineRunning,
-                locked: options.isLocked,
+                locked: options.areDoorsLocked,
             })
         );
     }
-}*/
+}
