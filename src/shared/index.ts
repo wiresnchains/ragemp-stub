@@ -4,6 +4,6 @@ export * from './interfaces/entity';
 export * from './mock/event';
 export * from './mock/entity';
 
-export * from './vector';
-export * from './joaat';
-export * from './utils';
+export * from './utils/vector';
+export * from './utils/joaat';
+export * from './utils/type-resolver';

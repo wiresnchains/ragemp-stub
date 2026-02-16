@@ -1,4 +1,4 @@
-import type { ForEachHandler } from './interfaces/entity';
+import type { ForEachHandler } from '../interfaces/entity';
 import type { Vector3 } from './vector';
 
 export function isString(v: unknown): v is string {
