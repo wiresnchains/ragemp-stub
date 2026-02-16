@@ -1,6 +1,7 @@
 import type { Color } from '../utils/color';
 import type { SharedPed } from './ped';
 import type { Vector3 } from '../utils/vector';
+import type { SharedEntity, SharedEntityPool } from './entity';
 import type {
     VehicleArmorType,
     VehicleBoostType,
@@ -15,7 +16,7 @@ import type {
     VehicleWindowTintType,
 } from '../enums/vehicle';
 
-export interface SharedVehicle {
+export interface SharedVehicle extends SharedEntity {
     readonly occupants: SharedPed[];
 
     /**
@@ -191,6 +192,6 @@ export interface VehicleSpawnOptions extends Partial<{
     areDoorsLocked?: boolean;
 }> {}
 
-export interface SharedVehiclePool<TEntity extends SharedVehicle> {
+export interface SharedVehiclePool<TEntity extends SharedVehicle> extends SharedEntityPool<TEntity> {
     spawn(model: string | number, position: Vector3, options?: VehicleSpawnOptions): TEntity;
 }
