@@ -1,4 +1,4 @@
-import type { VehicleSeat } from '@/enums/vehicle';
+import type { VehicleSeat } from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from './entity';
 import type { Vehicle } from './vehicle';
 

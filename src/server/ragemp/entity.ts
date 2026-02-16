@@ -44,6 +44,16 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
         this.entity.position = new mp.Vector3(position.x, position.y, position.z);
     }
 
+    public get heading(): number {
+        //@ts-ignore
+        return this.entity.heading;
+    }
+
+    public set heading(heading: number) {
+        //@ts-ignore
+        this.entity.heading = heading;
+    }
+
     public dist(to: Vector3): number {
         return this.entity.dist(new mp.Vector3(to.x, to.y, to.z));
     }

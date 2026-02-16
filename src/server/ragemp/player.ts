@@ -1,5 +1,4 @@
-import { isNumber, isString, isVector3 } from 'ragemp-atlas/shared';
-import type { VehicleSeat } from '@/enums/vehicle';
+import { isNumber, isString, isVector3, VehicleSeat } from 'ragemp-atlas/shared';
 import type { Player, PlayerPool } from '@/interfaces/player';
 import { RageEntity, RageEntityPool } from './entity';
 import { RageVehicle } from './vehicle';
