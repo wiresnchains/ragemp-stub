@@ -1,126 +1,128 @@
-import { joaat, Vector3 } from 'ragemp-atlas/shared';
-import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '@/interfaces/vehicle';
-import { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums/vehicle';
-import type { MockServerContainer } from './container';
+import {
+    Vector3,
+    Color,
+    type SharedPed,
+    type VehicleSpawnOptions,
+    isString,
+    VehiclePaintType,
+    VehicleEngineType,
+    VehicleBrakeType,
+    VehicleTransmissionType,
+    VehicleSuspensionType,
+    VehicleArmorType,
+    VehicleWindowTintType,
+    VehicleBoostType,
+    VehicleModType,
+    VehicleNumberPlateType,
+    VehicleSeat,
+} from 'ragemp-atlas/shared';
+import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';
 
+// TO-DO: Change ped interface
+
 export class MockVehicle extends MockEntity implements Vehicle {
-    public readonly engineHealth: number;
-    public readonly steerAngle: number;
-    public readonly areBrakesActive: boolean;
-    public readonly isHornActive: boolean;
-    public readonly areHighbeamsActive: boolean;
-    public readonly isSirenActive: boolean;
-    public readonly trailer?: Vehicle | undefined;
-    public readonly traileredBy?: Vehicle | undefined;
-    public readonly velocity: Vector3;
+    public readonly steerAngle: number = 0;
+    public readonly areBrakesActive: boolean = false;
+    public readonly isHornActive: boolean = false;
+    public readonly velocity: Vector3 = new Vector3();
+
+    public rotation: Vector3 = new Vector3();
+
+    public engineHealth: number = 1000;
+    public bodyHealth: number = 1000;
+    public isEngineRunning: boolean = true;
+    public isDrivable: boolean = true;
+    public isMovable: boolean = true;
+    public areDoorsLocked: boolean = false;
+    public primaryPaint: VehiclePaintType = VehiclePaintType.CLASSIC;
+    public secondaryPaint: VehiclePaintType = VehiclePaintType.CLASSIC;
+    public primaryColor: number = 0;
+    public secondaryColor: number = 0;
+    public pearlescentColorIndex: number = 0;
+    public wheelColorIndex: number = 0;
+    public areNeonLightsActive: boolean = false;
+    public neonLightsColor: Color = new Color();
+    public engineMod: VehicleEngineType = VehicleEngineType.STANDARD;
+    public brakeMod: VehicleBrakeType = VehicleBrakeType.STANDARD;
+    public transmissionMod: VehicleTransmissionType = VehicleTransmissionType.STANDARD;
+    public suspensionMod: VehicleSuspensionType = VehicleSuspensionType.STANDARD;
+    public armorMod: VehicleArmorType = VehicleArmorType.NONE;
+    public windowTintMod: VehicleWindowTintType = VehicleWindowTintType.NONE;
+    public boostMod: VehicleBoostType = VehicleBoostType.NONE;
+    public numberPlate: string = '';
+    public numberPlateType: VehicleNumberPlateType = VehicleNumberPlateType.BLUE_ON_WHITE;
+
+    private occupantMap: Map<VehicleSeat, SharedPed> = new Map();
+    private modMap: Map<VehicleModType, number> = new Map();
+
+    private streamedPlayerSet: Set<MockPlayer> = new Set();
+
+    public get occupants() {
+        return Array.from(this.occupantMap.values());
+    }
 
     public get streamedPlayers(): MockPlayer[] {
-        return Array.from(this.streamedPlayersSet.values());
+        return Array.from(this.streamedPlayerSet.values());
     }
 
-    public get occupants(): MockPlayer[] {
-        return Array.from(this.seats.values());
+    public repair(): void {
+        this.engineHealth = 1000;
+        this.bodyHealth = 1000;
     }
 
-    public heading: number;
-    public bodyHealth: number;
-    public rotation: Vector3;
-    public isDestroyed: boolean;
-    public isEngineRunning: boolean;
-    public isLocked: boolean;
-    public isMoveable: boolean;
-    public areNeonLightsActive: boolean;
-    public areTaxiLightsActive: boolean;
-    public controlledBy?: MockPlayer | undefined;
-    public numberPlate: string;
-    public numberPlateType: VehicleNumberPlateType;
-    public dashboardColor: number;
-    public trimColor: number;
-    public wheelColor: number;
-    public windowTint: number;
-    public primaryPaint: number;
-    public secondaryPaint: number;
-    public primaryColor: number;
-    public secondaryColor: number;
-    public pearlescentColor: number;
-
-    private seats: Map<VehicleSeat, MockPlayer>;
-    private streamedPlayersSet: Set<MockPlayer>;
-
-    public constructor(container: MockServerContainer, id: number) {
-        super(container, id);
-
-        this.seats = new Map();
-        this.streamedPlayersSet = new Set();
-
-        this.engineHealth = 100;
-        this.steerAngle = 0;
-        this.areBrakesActive = false;
-        this.isHornActive = false;
-        this.areHighbeamsActive = false;
-        this.isSirenActive = false;
-        this.velocity = new Vector3();
-
-        this.heading = 0;
-        this.bodyHealth = 100;
-        this.rotation = new Vector3();
-        this.isDestroyed = false;
-        this.isEngineRunning = true;
-        this.isLocked = false;
-        this.isMoveable = true;
-        this.areNeonLightsActive = false;
-        this.areTaxiLightsActive = false;
-        this.numberPlate = '';
-        this.numberPlateType = VehicleNumberPlateType.BLUE_ON_WHITE;
-        this.dashboardColor = 0;
-        this.trimColor = 0;
-        this.wheelColor = 0;
-        this.windowTint = 0;
-        this.primaryPaint = VehiclePaint.CLASSIC;
-        this.secondaryPaint = VehiclePaint.CLASSIC;
-        this.primaryColor = 0;
-        this.secondaryColor = 0;
-        this.pearlescentColor = 0;
+    public getOccupant(seat: VehicleSeat): SharedPed | undefined {
+        return this.occupantMap.get(seat);
     }
 
-    public explode(): void {}
-
-    public repair(): void {}
-
-    public getOccupant(seat: VehicleSeat): MockPlayer | undefined {
-        return this.seats.get(seat);
+    public setOccupant(seat: VehicleSeat, occupant: SharedPed): void {
+        this.occupantMap.set(seat, occupant);
     }
 
-    public setOccupant(seat: VehicleSeat, player: MockPlayer): void {
-        player.vehicle = this;
-        player.seat = seat;
-        this.seats.set(seat, player);
+    public getModIndex(modType: VehicleModType): number {
+        const index = this.modMap.get(modType);
+
+        if (index !== undefined) {
+            return index;
+        }
+
+        this.modMap.set(modType, 0);
+
+        return 0;
     }
 
-    public setPrimaryColorRGB(_red: number, _green: number, _blue: number): void {}
+    public setModIndex(modType: VehicleModType, modIndex: number): void {
+        this.modMap.set(modType, modIndex);
+    }
 
-    public setSecondaryColorRGB(_red: number, _green: number, _blue: number): void {}
-
-    public setNeonColorRGB(_red: number, _green: number, _blue: number): void {}
+    public explode(): void {
+        this.isDrivable = false;
+        this.engineHealth = 0;
+        this.bodyHealth = 0;
+    }
 
     public isStreamed(player: MockPlayer): boolean {
-        return this.streamedPlayersSet.has(player);
+        return this.streamedPlayerSet.has(player);
     }
 }
 
-export class MockVehiclePool extends MockEntityPool<MockVehicle> implements VehiclePool<MockVehicle> {
+export class MockVehiclePool extends MockEntityPool<MockVehicle> implements VehiclePool {
     public spawn(model: string | number, position: Vector3, options: VehicleSpawnOptions = {}): MockVehicle {
         const vehicle = this.createEntity();
 
-        vehicle.model = typeof model === 'string' ? joaat(model) : model;
+        if (isString(model)) {
+            vehicle.model = this.container.joaat(model);
+        } else {
+            vehicle.model = model;
+        }
+
         vehicle.position = position;
         vehicle.dimension = options.dimension ?? vehicle.dimension;
         vehicle.heading = options.heading ?? vehicle.heading;
         vehicle.numberPlate = options.numberPlate ?? vehicle.numberPlate;
         vehicle.isEngineRunning = options.isEngineRunning ?? vehicle.isEngineRunning;
-        vehicle.isLocked = options.isLocked ?? vehicle.isLocked;
+        vehicle.areDoorsLocked = options.areDoorsLocked ?? vehicle.areDoorsLocked;
 
         return vehicle;
     }
