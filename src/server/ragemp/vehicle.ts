@@ -1,7 +1,21 @@
-import { Vector3 } from 'ragemp-atlas/shared';
-import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '@/interfaces/vehicle';
-import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums/vehicle';
-import { RageEntity, RageEntityPool } from './entity';
+import {
+    VehicleSeat,
+    VehicleModType,
+    VehicleWindowTintType,
+    VehicleEngineType,
+    VehicleBrakeType,
+    VehicleTransmissionType,
+    VehicleSuspensionType,
+    VehicleArmorType,
+    VehicleBoostType,
+    VehicleNumberPlateType,
+    VehiclePaintType,
+    Vector3,
+    Color,
+    type SharedPed,
+} from 'ragemp-atlas/shared';
+import type { Vehicle } from '@/interfaces/vehicle';
+import { RageEntity } from './entity';
 import { RagePlayer } from './player';
 
 export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
@@ -21,10 +35,6 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         RageVehicle.vehicleMap.set(vehicle, this);
     }
 
-    public get engineHealth(): number {
-        return this.entity.engineHealth;
-    }
-
     public get steerAngle(): number {
         return this.entity.steerAngle;
     }
@@ -37,32 +47,22 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         return this.entity.horn;
     }
 
-    public get areHighbeamsActive(): boolean {
-        return this.entity.highbeams;
-    }
-
-    public get isSirenActive(): boolean {
-        return this.entity.siren;
-    }
-
     public get streamedPlayers(): RagePlayer[] {
-        return this.entity.streamedPlayers.map(player => RagePlayer.fromPlayer(player));
-    }
-
-    public get occupants(): RagePlayer[] {
-        return this.entity.getOccupants().map(player => RagePlayer.fromPlayer(player));
-    }
-
-    public get trailer(): RageVehicle | undefined {
-        return this.entity.trailer ? new RageVehicle(this.entity.trailer) : undefined;
-    }
-
-    public get traileredBy(): RageVehicle | undefined {
-        return this.entity.traileredBy ? new RageVehicle(this.entity.traileredBy) : undefined;
+        return this.entity.streamedPlayers.map(RagePlayer.fromPlayer);
     }
 
     public get velocity(): Vector3 {
-        return new Vector3(this.entity.velocity.x, this.entity.velocity.y, this.entity.velocity.z);
+        const velocity = this.entity.velocity;
+        return new Vector3(velocity.x, velocity.y, velocity.z);
+    }
+
+    public get rotation(): Vector3 {
+        const rotation = this.entity.rotation;
+        return new Vector3(rotation.x, rotation.y, rotation.z);
+    }
+
+    public set rotation(rotation: Vector3) {
+        this.entity.rotation = new mp.Vector3(rotation.x, rotation.y, rotation.z);
     }
 
     public get heading(): number {
@@ -73,28 +73,20 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         this.entity.rotation = new mp.Vector3(this.entity.rotation.x, this.entity.rotation.y, heading);
     }
 
+    public get occupants(): SharedPed[] {
+        return this.entity.getOccupants().map(RagePlayer.fromPlayer);
+    }
+
+    public get engineHealth(): number {
+        return this.entity.engineHealth;
+    }
+
     public get bodyHealth(): number {
         return this.entity.bodyHealth;
     }
 
     public set bodyHealth(bodyHealth: number) {
         this.entity.bodyHealth = bodyHealth;
-    }
-
-    public get rotation(): Vector3 {
-        return new Vector3(this.entity.rotation.x, this.entity.rotation.y, this.entity.rotation.z);
-    }
-
-    public set rotation(rotation: Vector3) {
-        this.entity.rotation = new mp.Vector3(rotation.x, rotation.y, rotation.z);
-    }
-
-    public get isDestroyed(): boolean {
-        return this.entity.dead;
-    }
-
-    public set isDestroyed(isDestroyed: boolean) {
-        this.entity.dead = isDestroyed;
     }
 
     public get isEngineRunning(): boolean {
@@ -105,20 +97,124 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         this.entity.engine = isEngineRunning;
     }
 
-    public get isLocked(): boolean {
-        return this.entity.locked;
+    public get isDrivable(): boolean {
+        return this.entity.dead;
     }
 
-    public set isLocked(isLocked: boolean) {
-        this.entity.locked = isLocked;
+    public set isDrivable(isDrivable: boolean) {
+        this.entity.dead = isDrivable;
     }
 
-    public get isMoveable(): boolean {
+    public get isMovable(): boolean {
         return this.entity.movable;
     }
 
-    public set isMoveable(isMoveable: boolean) {
-        this.entity.movable = isMoveable;
+    public set isMovable(isMovable: boolean) {
+        this.entity.movable = isMovable;
+    }
+
+    public get areDoorsLocked(): boolean {
+        return this.entity.locked;
+    }
+
+    public set areDoorsLocked(areDoorsLocked: boolean) {
+        this.entity.locked = areDoorsLocked;
+    }
+
+    public get primaryPaint(): VehiclePaintType {
+        return this.entity.getPaint(0);
+    }
+
+    public set primaryPaint(primaryPaint: VehiclePaintType) {
+        this.entity.setPaint(primaryPaint, this.primaryColor, this.secondaryPaint, this.secondaryColor);
+    }
+
+    public get secondaryPaint(): VehiclePaintType {
+        return this.entity.getPaint(1);
+    }
+
+    public set secondaryPaint(secondaryPaint: VehiclePaintType) {
+        this.entity.setPaint(this.primaryPaint, this.primaryColor, secondaryPaint, this.secondaryColor);
+    }
+
+    public get primaryColor(): number {
+        return this.entity.getColor(0);
+    }
+
+    public set primaryColor(primaryColor: number) {
+        this.entity.setColor(primaryColor, this.secondaryColor);
+    }
+
+    public get secondaryColor(): number {
+        return this.entity.getColor(1);
+    }
+
+    public set secondaryColor(secondaryColor: number) {
+        this.entity.setColor(this.primaryColor, secondaryColor);
+    }
+
+    public get customPrimaryColor(): Color | undefined {
+        const color = this.entity.getColorRGB(0);
+        if (color === null) {
+            return;
+        }
+
+        return new Color(color[0], color[1], color[2]);
+    }
+
+    public set customPrimaryColor(customPrimaryColor: Color | undefined) {
+        if (!customPrimaryColor) {
+            return;
+        }
+
+        this.entity.setColorRGB(
+            customPrimaryColor.red,
+            customPrimaryColor.green,
+            customPrimaryColor.blue,
+            this.customSecondaryColor?.red ?? 0,
+            this.customSecondaryColor?.green ?? 0,
+            this.customSecondaryColor?.blue ?? 0
+        );
+    }
+
+    public get customSecondaryColor(): Color | undefined {
+        const color = this.entity.getColorRGB(1);
+        if (color === null) {
+            return;
+        }
+
+        return new Color(color[0], color[1], color[2]);
+    }
+
+    public set customSecondaryColor(customSecondaryColor: Color | undefined) {
+        if (!customSecondaryColor) {
+            return;
+        }
+
+        this.entity.setColorRGB(
+            this.customPrimaryColor?.red ?? 0,
+            this.customPrimaryColor?.green ?? 0,
+            this.customPrimaryColor?.blue ?? 0,
+            customSecondaryColor.red,
+            customSecondaryColor.green,
+            customSecondaryColor.blue
+        );
+    }
+
+    public get pearlescentColorIndex(): number {
+        return this.entity.pearlescentColor;
+    }
+
+    public set pearlescentColorIndex(pearlescentColorIndex: number) {
+        this.entity.pearlescentColor = pearlescentColorIndex;
+    }
+
+    public get wheelColorIndex(): number {
+        return this.entity.wheelColor;
+    }
+
+    public set wheelColorIndex(wheelColorIndex: number) {
+        this.entity.wheelColor = wheelColorIndex;
     }
 
     public get areNeonLightsActive(): boolean {
@@ -129,25 +225,78 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         this.entity.neonEnabled = areNeonLightsActive;
     }
 
-    public get areTaxiLightsActive(): boolean {
-        return this.entity.taxiLights;
+    public get neonLightsColor(): Color {
+        // TO-DO: untested
+        const color = this.entity.getNeonColor();
+        return new Color(color[0], color[1], color[2]);
     }
 
-    public set areTaxiLightsActive(areTaxiLightsActive: boolean) {
-        this.entity.taxiLights = areTaxiLightsActive;
+    public set neonLightsColor(neonLightsColor: Color) {
+        this.entity.setNeonColor(neonLightsColor.red, neonLightsColor.green, neonLightsColor.blue);
     }
 
-    public get controlledBy(): RagePlayer | undefined {
-        return this.entity.controller ? RagePlayer.fromPlayer(this.entity.controller) : undefined;
+    public get engineMod(): VehicleEngineType {
+        return this.getModIndex(VehicleModType.ENGINE);
     }
 
-    public set controlledBy(controlledBy: RagePlayer | undefined) {
-        if (controlledBy === undefined) {
-            this.entity.controller = undefined;
-            return;
-        }
+    public set engineMod(engineMod: VehicleEngineType) {
+        this.setModIndex(VehicleModType.ENGINE, engineMod);
+    }
 
-        this.entity.controller = controlledBy.entity;
+    public get brakeMod(): VehicleBrakeType {
+        return this.getModIndex(VehicleModType.BRAKES);
+    }
+
+    public set brakeMod(brakeMod: VehicleBrakeType) {
+        this.setModIndex(VehicleModType.BRAKES, brakeMod);
+    }
+
+    public get transmissionMod(): VehicleTransmissionType {
+        return this.getModIndex(VehicleModType.TRANSMISSION);
+    }
+
+    public set transmissionMod(transmissionMod: VehicleTransmissionType) {
+        this.setModIndex(VehicleModType.TRANSMISSION, transmissionMod);
+    }
+
+    public get suspensionMod(): VehicleSuspensionType {
+        return this.getModIndex(VehicleModType.SUSPENSION);
+    }
+
+    public set suspensionMod(suspensionMod: VehicleSuspensionType) {
+        this.setModIndex(VehicleModType.SUSPENSION, suspensionMod);
+    }
+
+    public get armorMod(): VehicleArmorType {
+        return this.getModIndex(VehicleModType.ARMOR);
+    }
+
+    public set armorMod(armorMod: VehicleArmorType) {
+        this.setModIndex(VehicleModType.ARMOR, armorMod);
+    }
+
+    public get windowTintMod(): VehicleWindowTintType {
+        return this.entity.windowTint;
+    }
+
+    public set windowTintMod(windowTintMod: VehicleWindowTintType) {
+        this.entity.windowTint = windowTintMod;
+    }
+
+    public get hasTurboMod(): boolean {
+        return this.getModIndex(VehicleModType.TURBO) === 0;
+    }
+
+    public set hasTurboMod(hasTurboMod: boolean) {
+        this.setModIndex(VehicleModType.TURBO, hasTurboMod ? 0 : -1);
+    }
+
+    public get boostMod(): VehicleBoostType {
+        return this.getModIndex(VehicleModType.BOOST);
+    }
+
+    public set boostMod(boostMod: VehicleBoostType) {
+        this.setModIndex(VehicleModType.BOOST, boostMod);
     }
 
     public get numberPlate(): string {
@@ -166,112 +315,30 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         this.entity.numberPlateType = numberPlateType as number;
     }
 
-    public get dashboardColor(): number {
-        return this.entity.dashboardColor;
+    public repair(): void {
+        this.entity.repair();
     }
 
-    public set dashboardColor(dashboardColor: number) {
-        this.entity.dashboardColor = dashboardColor;
+    public getOccupant(_seat: VehicleSeat): SharedPed | undefined {
+        // TO-DO: Waiting for ped implementation
+        // Use: this.entity.getOccupant
+        return;
     }
 
-    public get trimColor(): number {
-        return this.entity.trimColor;
+    public setOccupant(_seat: VehicleSeat, _occupant: SharedPed): void {
+        // TO-DO: Waiting for ped implementation
     }
 
-    public set trimColor(trimColor: number) {
-        this.entity.trimColor = trimColor;
+    public getModIndex(modType: VehicleModType): number {
+        return this.entity.getMod(modType);
     }
 
-    public get wheelColor(): number {
-        return this.entity.wheelColor;
+    public setModIndex(modType: VehicleModType, modIndex: number): void {
+        this.entity.setMod(modType, modIndex);
     }
 
-    public set wheelColor(wheelColor: number) {
-        this.entity.wheelColor = wheelColor;
-    }
-
-    public get windowTint(): number {
-        return this.entity.windowTint;
-    }
-
-    public set windowTint(windowTint: number) {
-        this.entity.windowTint = windowTint;
-    }
-
-    public get primaryPaint(): VehiclePaint {
-        return this.entity.getPaint(0);
-    }
-
-    public set primaryPaint(primaryPaint: VehiclePaint) {
-        this.entity.setPaint(primaryPaint, this.primaryColor, this.secondaryPaint, this.secondaryColor);
-    }
-
-    public get secondaryPaint(): VehiclePaint {
-        return this.entity.getPaint(1);
-    }
-
-    public set secondaryPaint(secondaryPaint: VehiclePaint) {
-        this.entity.setPaint(this.primaryPaint, this.primaryColor, secondaryPaint, this.secondaryColor);
-    }
-
-    public get primaryColor() {
-        return this.entity.getColor(0);
-    }
-
-    public set primaryColor(primaryColor: number) {
-        this.entity.setColor(primaryColor, this.secondaryColor);
-    }
-
-    public get secondaryColor() {
-        return this.entity.getColor(1);
-    }
-
-    public set secondaryColor(secondaryColor: number) {
-        this.entity.setColor(this.primaryColor, secondaryColor);
-    }
-
-    public get pearlescentColor(): number {
-        return this.entity.pearlescentColor;
-    }
-
-    public set pearlescentColor(pearlescentColor: number) {
-        this.entity.pearlescentColor = pearlescentColor;
-    }
-
-    public explode(): void {}
-
-    public repair(): void {}
-
-    public getOccupant(seat: VehicleSeat): RagePlayer | undefined {
-        return RagePlayer.fromPlayer(this.entity.getOccupant(seat));
-    }
-
-    public setOccupant(seat: VehicleSeat, player: RagePlayer): void {
-        this.entity.setOccupant(seat, player.entity);
-    }
-
-    public setPrimaryColorRGB(red: number, green: number, blue: number): void {
-        let secondaryColor = this.entity.getVariable('secondaryColor');
-        if (!secondaryColor) {
-            secondaryColor = { red: 0, green: 0, blue: 0 };
-        }
-
-        this.entity.setColorRGB(red, green, blue, secondaryColor.red, secondaryColor.green, secondaryColor.blue);
-        this.entity.setVariable('primaryColor', { red, green, blue });
-    }
-
-    public setSecondaryColorRGB(red: number, green: number, blue: number): void {
-        let primaryColor = this.entity.getVariable('primaryColor');
-        if (!primaryColor) {
-            primaryColor = { red: 0, green: 0, blue: 0 };
-        }
-
-        this.entity.setColorRGB(primaryColor.red, primaryColor.green, primaryColor.blue, red, green, blue);
-        this.entity.setVariable('secondaryColor', { red, green, blue });
-    }
-
-    public setNeonColorRGB(red: number, green: number, blue: number): void {
-        this.entity.setNeonColor(red, green, blue);
+    public explode(): void {
+        this.entity.explode();
     }
 
     public isStreamed(player: RagePlayer): boolean {
@@ -279,7 +346,7 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
     }
 }
 
-export class RageVehiclePool
+/*export class RageVehiclePool
     extends RageEntityPool<VehicleMp, VehicleMpPool, RageVehicle>
     implements VehiclePool<RageVehicle>
 {
@@ -298,4 +365,4 @@ export class RageVehiclePool
             })
         );
     }
-}
+}*/
