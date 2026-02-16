@@ -1,6 +1,7 @@
 import type { Color } from '../utils/color';
-import type { SharedEntity } from './entity';
+import type { SharedEntity, SharedEntityPool } from './entity';
 import type { SharedPed } from './ped';
+import type { Vector3 } from '../utils/vector';
 import type {
     VehicleArmorType,
     VehicleBoostType,
@@ -181,4 +182,16 @@ export interface SharedVehicle extends SharedEntity {
      * @param modIndex New modification index.
      */
     setModIndex(modType: VehicleModType, modIndex: number): void;
+}
+
+export interface SharedVehicleSpawnOptions extends Partial<{
+    dimension?: number;
+    heading?: number;
+    numberPlate?: string;
+    isEngineRunning?: boolean;
+    areDoorsLocked?: boolean;
+}> {}
+
+export interface SharedVehiclePool extends SharedEntityPool<SharedVehicle> {
+    spawn(model: string | number, position: Vector3, options?: SharedVehicleSpawnOptions): SharedVehicle;
 }

@@ -1,3 +1,10 @@
+import type { SharedPed } from '../interfaces/ped';
+import type { SharedVehicle, SharedVehiclePool, SharedVehicleSpawnOptions } from '../interfaces/vehicle';
+import { Color } from '../utils/color';
+import { joaat } from '../utils/joaat';
+import { isString } from '../utils/type-resolver';
+import type { Vector3 } from '../utils/vector';
+import { SharedMockEntity, SharedMockEntityPool } from './entity';
 import {
     VehicleArmorType,
     VehicleBoostType,
@@ -11,10 +18,6 @@ import {
     VehicleWindowTintType,
     type VehicleSeat,
 } from '../enums/vehicle';
-import type { SharedPed } from '../interfaces/ped';
-import type { SharedVehicle } from '../interfaces/vehicle';
-import { Color } from '../utils/color';
-import { SharedMockEntity } from './entity';
 
 export class SharedMockVehicle<TContainer> extends SharedMockEntity<TContainer> implements SharedVehicle {
     public engineHealth: number = 1000;
@@ -79,5 +82,29 @@ export class SharedMockVehicle<TContainer> extends SharedMockEntity<TContainer> 
 
     public setModIndex(modType: VehicleModType, modIndex: number): void {
         this.modMap.set(modType, modIndex);
+    }
+}
+
+export class SharedMockVehiclePool<TContainer>
+    extends SharedMockEntityPool<TContainer, SharedMockVehicle<TContainer>>
+    implements SharedVehiclePool
+{
+    public spawn(model: string | number, position: Vector3, options: SharedVehicleSpawnOptions = {}): SharedVehicle {
+        const vehicle = this.createEntity();
+
+        if (isString(model)) {
+            vehicle.model = joaat(model);
+        } else {
+            vehicle.model = model;
+        }
+
+        vehicle.position = position;
+        vehicle.dimension = options.dimension ?? vehicle.dimension;
+        vehicle.heading = options.heading ?? vehicle.heading;
+        vehicle.numberPlate = options.numberPlate ?? vehicle.numberPlate;
+        vehicle.isEngineRunning = options.isEngineRunning ?? vehicle.isEngineRunning;
+        vehicle.areDoorsLocked = options.areDoorsLocked ?? vehicle.areDoorsLocked;
+
+        return vehicle;
     }
 }
