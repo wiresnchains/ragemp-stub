@@ -1,5 +1,5 @@
 import type { Vector3 } from 'ragemp-atlas/shared';
-import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
+import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums/vehicle';
 import type { Entity, EntityPool } from './entity';
 import type { Player } from './player';
 

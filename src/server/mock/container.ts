@@ -1,8 +1,8 @@
 import { createJoaatCache } from 'ragemp-atlas/shared';
 import type { ServerContainer } from '@/interfaces/container';
-import { MockEventPool } from '@/mock/event';
-import { MockPlayer, MockPlayerPool } from '@/mock/player';
-import { MockVehicle, MockVehiclePool } from '@/mock/vehicle';
+import { MockEventPool } from './event';
+import { MockPlayer, MockPlayerPool } from './player';
+import { MockVehicle, MockVehiclePool } from './vehicle';
 
 export class MockServerContainer implements ServerContainer<MockEventPool, MockPlayerPool, MockVehiclePool> {
     public events: MockEventPool;

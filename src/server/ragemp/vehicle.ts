@@ -1,6 +1,6 @@
 import { Vector3 } from 'ragemp-atlas/shared';
 import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '@/interfaces/vehicle';
-import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
+import type { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums/vehicle';
 import { RageEntity, RageEntityPool } from './entity';
 import { RagePlayer } from './player';
 

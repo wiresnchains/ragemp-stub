@@ -1,5 +1,5 @@
 import type { ClientContainer } from '@/interfaces/container';
-import { MockEventPool } from '@/mock/event';
+import { MockEventPool } from './event';
 import { MockGame } from './game';
 
 export class MockClientContainer implements ClientContainer<MockGame, MockEventPool> {

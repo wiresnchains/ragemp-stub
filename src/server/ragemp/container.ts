@@ -1,8 +1,8 @@
 import { createJoaatCache } from 'ragemp-atlas/shared';
 import type { ServerContainer } from '@/interfaces/container';
-import { RageEventPool } from '@/ragemp/event';
-import { RagePlayerPool } from '@/ragemp/player';
-import { RageVehiclePool } from '@/ragemp/vehicle';
+import { RageEventPool } from './event';
+import { RagePlayerPool } from './player';
+import { RageVehiclePool } from './vehicle';
 
 export class RageServerContainer implements ServerContainer<RageEventPool, RagePlayerPool, RageVehiclePool> {
     public events: RageEventPool;

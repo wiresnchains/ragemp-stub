@@ -1,7 +1,7 @@
 import { joaat, Vector3 } from 'ragemp-atlas/shared';
 import type { Vehicle, VehiclePool, VehicleSpawnOptions } from '@/interfaces/vehicle';
-import { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums';
-import type { MockServerContainer } from '@/mock/container';
+import { VehicleNumberPlateType, VehiclePaint, VehicleSeat } from '@/enums/vehicle';
+import type { MockServerContainer } from './container';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';
 

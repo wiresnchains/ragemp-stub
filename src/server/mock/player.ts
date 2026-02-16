@@ -1,7 +1,7 @@
 import { isNumber, isString, isVector3 } from 'ragemp-atlas/shared';
 import type { Player, PlayerPool } from '@/interfaces/player';
-import type { VehicleSeat } from '@/enums';
-import type { MockServerContainer } from '@/mock/container';
+import type { VehicleSeat } from '@/enums/vehicle';
+import type { MockServerContainer } from './container';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockVehicle } from './vehicle';
 
