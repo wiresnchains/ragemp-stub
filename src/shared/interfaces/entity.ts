@@ -27,6 +27,13 @@ export interface SharedEntity {
     position: Vector3;
 
     /**
+     * Heading of the entity.
+     *
+     * Alias for the Z-axis of the rotation.
+     */
+    heading: number;
+
+    /**
      * Calculate the distance to the given position.
      * @param to Position to which the distance is calculated.
      */
