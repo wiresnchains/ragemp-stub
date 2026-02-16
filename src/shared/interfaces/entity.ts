@@ -1,4 +1,4 @@
-import type { Vector3 } from '../vector';
+import type { Vector3 } from '../utils/vector';
 
 export interface SharedEntity {
     /**

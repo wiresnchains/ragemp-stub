@@ -1,7 +1,7 @@
 import type { ForEachHandler, SharedEntity, SharedEntityPool } from '../interfaces/entity';
-import { joaat } from '../joaat';
-import { isHandler, isNumber, isVector3 } from '../utils';
-import { Vector3 } from '../vector';
+import { joaat } from '../utils/joaat';
+import { isHandler, isNumber, isVector3 } from '../utils/type-resolver';
+import { Vector3 } from '../utils/vector';
 
 export class SharedMockEntity<TContainer> implements SharedEntity {
     public readonly id: number;
