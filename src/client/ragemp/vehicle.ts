@@ -350,6 +350,10 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
 }
 
 export class RageVehiclePool extends RageEntityPool<VehicleMp, VehicleMpPool, RageVehicle> implements VehiclePool {
+    public constructor() {
+        super(mp.vehicles, RageVehicle.fromVehicle);
+    }
+
     public spawn(model: string | number, position: Vector3, options: VehicleSpawnOptions = {}): RageVehicle {
         return RageVehicle.fromVehicle(
             mp.vehicles.new(model, new mp.Vector3(position.x, position.y, position.z), {
