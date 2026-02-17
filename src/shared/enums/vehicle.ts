@@ -62,6 +62,8 @@ export enum VehicleModType {
     ARCH_COVER = 42,
     AERIALS = 43,
     LIVERY = 48,
+    PLATE_TYPE = 53,
+    WINDOW_TINT = 55,
 }
 
 export enum VehicleHornType {
@@ -164,4 +166,11 @@ export enum VehicleNumberPlateType {
     YELLOW_ON_BLACK = 1,
     YELLOW_ON_BLUE = 2,
     NORTH_YANKTON = 5,
+}
+
+export enum VehicleNeonLightType {
+    LEFT,
+    RIGHT,
+    FRONT,
+    BACK,
 }
