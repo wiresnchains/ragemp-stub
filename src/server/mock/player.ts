@@ -5,6 +5,8 @@ import { MockEntity, MockEntityPool } from './entity';
 import type { MockVehicle } from './vehicle';
 
 export class MockPlayer extends MockEntity implements Player {
+    public heading: number;
+
     public readonly ip: string;
     public readonly ping: number;
     public readonly packetLoss: number;
@@ -22,7 +24,6 @@ export class MockPlayer extends MockEntity implements Player {
 
     public health: number;
     public armour: number;
-    public heading: number;
 
     private streamedPlayersSet: Set<MockPlayer>;
     private voiceListenersSet: Set<MockPlayer>;
@@ -30,12 +31,13 @@ export class MockPlayer extends MockEntity implements Player {
     public constructor(container: MockServerContainer, id: number) {
         super(container, id);
 
+        this.heading = 0;
+
         this.streamedPlayersSet = new Set();
         this.voiceListenersSet = new Set();
 
         this.health = 100;
         this.armour = 0;
-        this.heading = 0;
 
         this.ip = '127.0.0.1';
         this.ping = 0;

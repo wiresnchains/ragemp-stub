@@ -20,6 +20,14 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
         RagePlayer.playerMap.set(player, this);
     }
 
+    public get heading() {
+        return this.entity.heading;
+    }
+
+    public set heading(heading: number) {
+        this.entity.heading = heading;
+    }
+
     public get ip() {
         return this.entity.ip;
     }
@@ -66,14 +74,6 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
 
     public set armour(armour: number) {
         this.entity.armour = armour;
-    }
-
-    public get heading() {
-        return this.entity.heading;
-    }
-
-    public set heading(heading: number) {
-        this.entity.heading = heading;
     }
 
     public call(eventName: string, ...args: any[]): void {

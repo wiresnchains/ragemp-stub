@@ -1,8 +1,8 @@
-import type { VehicleSeat } from 'ragemp-atlas/shared';
+import type { SharedPlayer, VehicleSeat } from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from './entity';
 import type { Vehicle } from './vehicle';
 
-export interface Player extends Entity {
+export interface Player extends Entity, SharedPlayer {
     /**
      * IP address of the player.
      */
@@ -52,11 +52,6 @@ export interface Player extends Entity {
      * Armour of the player.
      */
     armour: number;
-
-    /**
-     * Heading (direction) of the player.
-     */
-    heading: number;
 
     /**
      * Calls the client-side event.
