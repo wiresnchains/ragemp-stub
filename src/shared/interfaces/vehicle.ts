@@ -1,5 +1,4 @@
 import type { Color } from '../utils/color';
-import type { SharedPed } from './ped';
 import type { Vector3 } from '../utils/vector';
 import type { SharedEntity, SharedEntityPool } from './entity';
 import type {
@@ -10,7 +9,6 @@ import type {
     VehicleModType,
     VehicleNumberPlateType,
     VehiclePaintType,
-    VehicleSeat,
     VehicleSuspensionType,
     VehicleTransmissionType,
     VehicleWindowTintType,
@@ -28,8 +26,6 @@ export interface SharedVehicle extends SharedEntity {
      * Alias for the Z-axis of the rotation.
      */
     heading: number;
-
-    readonly occupants: SharedPed[];
 
     /**
      * Engine health of the vehicle.
@@ -173,19 +169,6 @@ export interface SharedVehicle extends SharedEntity {
      * Repairs both the structual and mechanical damage on the vehicle.
      */
     repair(): void;
-
-    /**
-     * Returns the player that is in the given seat.
-     * @param seat Target seat.
-     */
-    getOccupant(seat: VehicleSeat): SharedPed | undefined;
-
-    /**
-     * Places the given player in the current vehicle in the given seat.
-     * @param seat Target seat.
-     * @param player Target player.
-     */
-    setOccupant(seat: VehicleSeat, occupant: SharedPed): void;
 
     /**
      * Gets the modification index of the vehicle.

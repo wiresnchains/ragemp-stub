@@ -1,6 +1,5 @@
 export * from './interfaces/event';
 export * from './interfaces/entity';
-export * from './interfaces/ped';
 export * from './interfaces/player';
 export * from './interfaces/vehicle';
 

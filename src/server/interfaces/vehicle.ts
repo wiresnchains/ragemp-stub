@@ -1,8 +1,10 @@
-import type { SharedVehicle, SharedVehiclePool, Vector3 } from 'ragemp-atlas/shared';
+import type { SharedVehicle, SharedVehiclePool, Vector3, VehicleSeat } from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from './entity';
 import type { Player } from './player';
 
 export interface Vehicle extends Entity, SharedVehicle {
+    readonly engineHealth: number;
+
     /**
      * Current steer angle of the vehicle.
      */
@@ -27,12 +29,16 @@ export interface Vehicle extends Entity, SharedVehicle {
      */
     readonly velocity: Vector3;
 
-    readonly engineHealth: number;
+    readonly occupants: Player[];
 
     /**
      * Explodes the vehicle.
      */
     explode(): void;
+
+    getOccupant(seat: VehicleSeat): Player | undefined;
+
+    setOccupant(seat: VehicleSeat, occupant: Player): void;
 
     /**
      * Checks whether or not the current vehicle is currently being streaned to the given player.

@@ -1,7 +1,6 @@
 import {
     Vector3,
     Color,
-    type SharedPed,
     type VehicleSpawnOptions,
     isString,
     VehiclePaintType,
@@ -19,8 +18,6 @@ import {
 import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';
-
-// TO-DO: Change ped interface
 
 export class MockVehicle extends MockEntity implements Vehicle {
     public rotation: Vector3 = new Vector3();
@@ -55,7 +52,7 @@ export class MockVehicle extends MockEntity implements Vehicle {
     public numberPlate: string = '';
     public numberPlateType: VehicleNumberPlateType = VehicleNumberPlateType.BLUE_ON_WHITE;
 
-    private occupantMap: Map<VehicleSeat, SharedPed> = new Map();
+    private occupantMap: Map<VehicleSeat, MockPlayer> = new Map();
     private modMap: Map<VehicleModType, number> = new Map();
 
     private streamedPlayerSet: Set<MockPlayer> = new Set();
@@ -81,11 +78,11 @@ export class MockVehicle extends MockEntity implements Vehicle {
         this.bodyHealth = 1000;
     }
 
-    public getOccupant(seat: VehicleSeat): SharedPed | undefined {
+    public getOccupant(seat: VehicleSeat): MockPlayer | undefined {
         return this.occupantMap.get(seat);
     }
 
-    public setOccupant(seat: VehicleSeat, occupant: SharedPed): void {
+    public setOccupant(seat: VehicleSeat, occupant: MockPlayer): void {
         this.occupantMap.set(seat, occupant);
     }
 

@@ -12,7 +12,6 @@ import {
     VehiclePaintType,
     Vector3,
     Color,
-    type SharedPed,
     type VehicleSpawnOptions,
 } from 'ragemp-atlas/shared';
 import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
@@ -74,7 +73,7 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         return new Vector3(velocity.x, velocity.y, velocity.z);
     }
 
-    public get occupants(): SharedPed[] {
+    public get occupants(): RagePlayer[] {
         return this.entity.getOccupants().map(RagePlayer.fromPlayer);
     }
 
@@ -320,14 +319,18 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         this.entity.repair();
     }
 
-    public getOccupant(_seat: VehicleSeat): SharedPed | undefined {
-        // TO-DO: Waiting for ped implementation
-        // Use: this.entity.getOccupant
-        return;
+    public getOccupant(seat: VehicleSeat): RagePlayer | undefined {
+        const occupant = this.entity.getOccupant(seat);
+
+        if (occupant === undefined) {
+            return;
+        }
+
+        return RagePlayer.fromPlayer(occupant);
     }
 
-    public setOccupant(_seat: VehicleSeat, _occupant: SharedPed): void {
-        // TO-DO: Waiting for ped implementation
+    public setOccupant(seat: VehicleSeat, occupant: RagePlayer): void {
+        this.entity.setOccupant(seat, occupant.entity);
     }
 
     public getModIndex(modType: VehicleModType): number {
