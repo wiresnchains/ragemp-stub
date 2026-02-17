@@ -69,7 +69,7 @@ export class MockPlayer extends MockEntity implements Player {
     }
 }
 
-export class MockPlayerPool extends MockEntityPool<MockPlayer> implements PlayerPool<MockPlayer> {
+export class MockPlayerPool extends MockEntityPool<MockPlayer> implements PlayerPool {
     public call(eventName: string, ...args: any[]): void;
     public call(dimension: number, eventName: string, ...args: any[]): void;
     public call(position: Vector3, range: number, eventName: string, ...args: any[]): void;

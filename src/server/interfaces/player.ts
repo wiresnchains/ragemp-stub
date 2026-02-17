@@ -98,7 +98,7 @@ export interface Player extends Entity {
     placeInVehicle(vehicle: Vehicle, seat: VehicleSeat): void;
 }
 
-export interface PlayerPool<T extends Player = Player> extends EntityPool<T> {
+export interface PlayerPool extends EntityPool<Player> {
     /**
      * Calls the client-side event for all players.
      * @param eventName Name of the event.

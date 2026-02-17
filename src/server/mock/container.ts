@@ -4,7 +4,7 @@ import { MockEventPool } from './event';
 import { MockPlayer, MockPlayerPool } from './player';
 import { MockVehicle, MockVehiclePool } from './vehicle';
 
-export class MockServerContainer implements ServerContainer<MockEventPool, MockPlayerPool, MockVehiclePool> {
+export class MockServerContainer implements ServerContainer {
     public events: MockEventPool;
     public players: MockPlayerPool;
     public vehicles: MockVehiclePool;

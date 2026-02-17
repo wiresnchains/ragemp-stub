@@ -4,7 +4,7 @@ import { RageEventPool } from './event';
 import { RagePlayerPool } from './player';
 import { RageVehiclePool } from './vehicle';
 
-export class RageServerContainer implements ServerContainer<RageEventPool, RagePlayerPool, RageVehiclePool> {
+export class RageServerContainer implements ServerContainer {
     public events: RageEventPool;
     public players: RagePlayerPool;
     public vehicles: RageVehiclePool;

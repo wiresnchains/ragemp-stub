@@ -2,13 +2,10 @@ import type { EventPool } from './event';
 import type { PlayerPool } from './player';
 import type { VehiclePool } from './vehicle';
 
-export interface ServerContainer<
-    TEvents extends EventPool = EventPool,
-    TPlayers extends PlayerPool = PlayerPool,
-    TVehicles extends VehiclePool = VehiclePool,
-> {
-    events: TEvents;
-    players: TPlayers;
-    vehicles: TVehicles;
+export interface ServerContainer {
+    events: EventPool;
+    players: PlayerPool;
+    vehicles: VehiclePool;
+
     joaat(plainText: string): number;
 }

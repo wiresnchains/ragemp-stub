@@ -101,10 +101,7 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
     }
 }
 
-export class RagePlayerPool
-    extends RageEntityPool<PlayerMp, PlayerMpPool, RagePlayer>
-    implements PlayerPool<RagePlayer>
-{
+export class RagePlayerPool extends RageEntityPool<PlayerMp, PlayerMpPool, RagePlayer> implements PlayerPool {
     public constructor() {
         super(mp.players, RagePlayer.fromPlayer);
     }
