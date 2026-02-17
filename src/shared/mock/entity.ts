@@ -6,23 +6,18 @@ import { Vector3 } from '../utils/vector';
 export class SharedMockEntity<TContainer> implements SharedEntity {
     public readonly id: number;
 
-    public alpha: number;
-    public dimension: number;
-    public model: number;
-    public position: Vector3;
+    public alpha: number = 255;
+    public dimension: number = 0;
+    public model: number = joaat('mp_m_freemode_01');
+    public position: Vector3 = new Vector3(0, 73, 0);
 
-    public isDestroyed: boolean;
+    public isDestroyed: boolean = false;
 
     protected container: TContainer;
 
     public constructor(container: TContainer, id: number) {
         this.container = container;
         this.id = id;
-        this.alpha = 255;
-        this.dimension = 0;
-        this.model = joaat('mp_m_freemode_01');
-        this.position = new Vector3(0, 73, 0);
-        this.isDestroyed = false;
     }
 
     public dist(to: Vector3): number {
@@ -48,14 +43,12 @@ export class SharedMockEntityPool<
 > implements SharedEntityPool<TEntity> {
     protected container: TContainer;
 
-    protected entities: Map<number, TEntity>;
+    protected entities: Map<number, TEntity> = new Map();
 
-    private nextId: number;
+    private nextId: number = 0;
     private entityCtor: (container: TContainer, id: number) => TEntity;
 
     public constructor(container: TContainer, entityCtor: (container: TContainer, id: number) => TEntity) {
-        this.nextId = 0;
-        this.entities = new Map();
         this.container = container;
         this.entityCtor = entityCtor;
     }

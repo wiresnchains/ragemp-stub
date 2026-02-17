@@ -1,18 +1,22 @@
 import { isNumber, isString, isVector3, VehicleSeat } from 'ragemp-atlas/shared';
 import type { Player, PlayerPool } from '@/interfaces/player';
-import type { MockServerContainer } from './container';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockVehicle } from './vehicle';
 
 export class MockPlayer extends MockEntity implements Player {
-    public heading: number;
+    public heading: number = 0;
 
-    public readonly ip: string;
-    public readonly ping: number;
-    public readonly packetLoss: number;
-    public readonly socialClub: string;
+    public readonly ip: string = '127.0.0.1';
+    public readonly ping: number = 0;
+    public readonly packetLoss: number = 0;
+    public readonly socialClub: string = 'WeirdNewbie';
     public vehicle?: MockVehicle;
     public seat?: VehicleSeat;
+    public health: number = 100;
+    public armour: number = 0;
+
+    private streamedPlayersSet: Set<MockPlayer> = new Set();
+    private voiceListenersSet: Set<MockPlayer> = new Set();
 
     public get streamedPlayers(): MockPlayer[] {
         return Array.from(this.streamedPlayersSet.values());
@@ -20,29 +24,6 @@ export class MockPlayer extends MockEntity implements Player {
 
     public get voiceListeners(): MockPlayer[] {
         return Array.from(this.voiceListenersSet.values());
-    }
-
-    public health: number;
-    public armour: number;
-
-    private streamedPlayersSet: Set<MockPlayer>;
-    private voiceListenersSet: Set<MockPlayer>;
-
-    public constructor(container: MockServerContainer, id: number) {
-        super(container, id);
-
-        this.heading = 0;
-
-        this.streamedPlayersSet = new Set();
-        this.voiceListenersSet = new Set();
-
-        this.health = 100;
-        this.armour = 0;
-
-        this.ip = '127.0.0.1';
-        this.ping = 0;
-        this.packetLoss = 0;
-        this.socialClub = 'WeirdNewbie';
     }
 
     public call(_eventName: string, ..._args: any[]): void {

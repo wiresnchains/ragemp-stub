@@ -7,9 +7,5 @@ export class RageStreamingManager implements StreamingManager {
 }
 
 export class RageGame implements Game {
-    public streaming: RageStreamingManager;
-
-    public constructor() {
-        this.streaming = new RageStreamingManager();
-    }
+    public streaming: RageStreamingManager = new RageStreamingManager();
 }

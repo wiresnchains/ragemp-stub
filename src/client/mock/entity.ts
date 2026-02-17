@@ -6,17 +6,14 @@ export class MockEntity extends SharedMockEntity<MockClientContainer> implements
     public readonly remoteId: number;
     public readonly handle: number;
 
-    public rotation: Vector3;
-    public visible: boolean;
+    public rotation: Vector3 = new Vector3();
+    public visible: boolean = true;
 
     public constructor(container: MockClientContainer, id: number, remoteId: number, handle: number) {
         super(container, id);
 
         this.remoteId = remoteId;
         this.handle = handle;
-
-        this.rotation = new Vector3();
-        this.visible = true;
     }
 }
 
@@ -24,19 +21,9 @@ export class MockEntityPool<TEntity extends MockEntity = MockEntity>
     extends SharedMockEntityPool<MockClientContainer, TEntity>
     implements EntityPool<TEntity>
 {
-    public maxStreamedEntityCount: number;
+    public maxStreamedEntityCount: number = 200;
 
-    private streamedEntitySet: Set<TEntity>;
-
-    public constructor(
-        container: MockClientContainer,
-        entityCtor: (container: MockClientContainer, id: number) => TEntity
-    ) {
-        super(container, entityCtor);
-
-        this.maxStreamedEntityCount = 200;
-        this.streamedEntitySet = new Set();
-    }
+    private streamedEntitySet: Set<TEntity> = new Set();
 
     public get streamedEntities(): TEntity[] {
         return Array.from(this.streamedEntitySet.values());
