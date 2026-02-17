@@ -13,13 +13,30 @@ import {
     VehicleSuspensionType,
     VehicleTransmissionType,
     VehicleWindowTintType,
+    type VehicleSpawnOptions,
 } from 'ragemp-atlas/shared';
-import type { Vehicle } from '@/interfaces/vehicle';
+import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
 import type { BasePed } from '@/interfaces/ped';
 import { RotationOrder } from '@/enums/rotation-order';
-import { RageEntity } from './entity';
+import { RageEntity, RageEntityPool } from './entity';
 
 export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
+    private static vehicleMap: Map<VehicleMp, RageVehicle> = new Map();
+
+    public static fromVehicle(vehicle: VehicleMp): RageVehicle {
+        let abstractVehicle = this.vehicleMap.get(vehicle);
+        if (abstractVehicle) {
+            return abstractVehicle;
+        }
+
+        return new RageVehicle(vehicle);
+    }
+
+    private constructor(vehicle: VehicleMp) {
+        super(vehicle);
+        RageVehicle.vehicleMap.set(vehicle, this);
+    }
+
     public get rotation(): Vector3 {
         const rotation = this.entity.getRotation(RotationOrder.XYZ);
         return new Vector3(rotation.x, rotation.y, rotation.z);
@@ -329,5 +346,19 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
 
     public toggleEngine(running: boolean): void {
         this.entity.setEngineOn(running, false, true);
+    }
+}
+
+export class RageVehiclePool extends RageEntityPool<VehicleMp, VehicleMpPool, RageVehicle> implements VehiclePool {
+    public spawn(model: string | number, position: Vector3, options: VehicleSpawnOptions = {}): RageVehicle {
+        return RageVehicle.fromVehicle(
+            mp.vehicles.new(model, new mp.Vector3(position.x, position.y, position.z), {
+                dimension: options.dimension,
+                heading: options.heading,
+                numberPlate: options.numberPlate,
+                engine: options.isEngineRunning,
+                locked: options.areDoorsLocked,
+            })
+        );
     }
 }
