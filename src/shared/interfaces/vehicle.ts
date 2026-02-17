@@ -17,6 +17,18 @@ import type {
 } from '../enums/vehicle';
 
 export interface SharedVehicle extends SharedEntity {
+    /**
+     * Rotation of the vehicle.
+     */
+    rotation: Vector3;
+
+    /**
+     * Heading of the vehicle.
+     *
+     * Alias for the Z-axis of the rotation.
+     */
+    heading: number;
+
     readonly occupants: SharedPed[];
 
     /**

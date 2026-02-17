@@ -10,7 +10,6 @@ export class SharedMockEntity<TContainer> implements SharedEntity {
     public dimension: number;
     public model: number;
     public position: Vector3;
-    public heading: number;
 
     public isDestroyed: boolean;
 
@@ -23,7 +22,6 @@ export class SharedMockEntity<TContainer> implements SharedEntity {
         this.dimension = 0;
         this.model = joaat('mp_m_freemode_01');
         this.position = new Vector3(0, 73, 0);
-        this.heading = 0;
         this.isDestroyed = false;
     }
 

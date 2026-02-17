@@ -36,6 +36,23 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         RageVehicle.vehicleMap.set(vehicle, this);
     }
 
+    public get rotation(): Vector3 {
+        const rotation = this.entity.rotation;
+        return new Vector3(rotation.x, rotation.y, rotation.z);
+    }
+
+    public set rotation(rotation: Vector3) {
+        this.entity.rotation = new mp.Vector3(rotation.x, rotation.y, rotation.z);
+    }
+
+    public get heading(): number {
+        return this.entity.heading;
+    }
+
+    public set heading(heading: number) {
+        this.entity.rotation = new mp.Vector3(this.entity.rotation.x, this.entity.rotation.y, heading);
+    }
+
     public get steerAngle(): number {
         return this.entity.steerAngle;
     }
@@ -55,23 +72,6 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
     public get velocity(): Vector3 {
         const velocity = this.entity.velocity;
         return new Vector3(velocity.x, velocity.y, velocity.z);
-    }
-
-    public get rotation(): Vector3 {
-        const rotation = this.entity.rotation;
-        return new Vector3(rotation.x, rotation.y, rotation.z);
-    }
-
-    public set rotation(rotation: Vector3) {
-        this.entity.rotation = new mp.Vector3(rotation.x, rotation.y, rotation.z);
-    }
-
-    public get heading(): number {
-        return this.entity.heading;
-    }
-
-    public set heading(heading: number) {
-        this.entity.rotation = new mp.Vector3(this.entity.rotation.x, this.entity.rotation.y, heading);
     }
 
     public get occupants(): SharedPed[] {

@@ -30,11 +30,6 @@ export interface Vehicle extends Entity, SharedVehicle {
     readonly engineHealth: number;
 
     /**
-     * Rotation of the vehicle.
-     */
-    rotation: Vector3;
-
-    /**
      * Explodes the vehicle.
      */
     explode(): void;

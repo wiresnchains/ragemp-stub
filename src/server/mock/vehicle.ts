@@ -23,12 +23,12 @@ import type { MockPlayer } from './player';
 // TO-DO: Change ped interface
 
 export class MockVehicle extends MockEntity implements Vehicle {
+    public rotation: Vector3 = new Vector3();
+
     public readonly steerAngle: number = 0;
     public readonly areBrakesActive: boolean = false;
     public readonly isHornActive: boolean = false;
     public readonly velocity: Vector3 = new Vector3();
-
-    public rotation: Vector3 = new Vector3();
 
     public engineHealth: number = 1000;
     public bodyHealth: number = 1000;
@@ -59,6 +59,14 @@ export class MockVehicle extends MockEntity implements Vehicle {
     private modMap: Map<VehicleModType, number> = new Map();
 
     private streamedPlayerSet: Set<MockPlayer> = new Set();
+
+    public get heading(): number {
+        return this.rotation.z;
+    }
+
+    public set heading(heading: number) {
+        this.rotation.z = heading;
+    }
 
     public get occupants() {
         return Array.from(this.occupantMap.values());
