@@ -5,15 +5,15 @@ import type { MockVehicle } from './vehicle';
 
 export class MockPlayer extends MockEntity implements Player {
     public heading: number = 0;
+    public vehicle?: MockVehicle;
+    public seat?: VehicleSeat;
+    public health: number = 100;
+    public armour: number = 0;
 
     public readonly ip: string = '127.0.0.1';
     public readonly ping: number = 0;
     public readonly packetLoss: number = 0;
     public readonly socialClub: string = 'WeirdNewbie';
-    public vehicle?: MockVehicle;
-    public seat?: VehicleSeat;
-    public health: number = 100;
-    public armour: number = 0;
 
     private streamedPlayersSet: Set<MockPlayer> = new Set();
     private voiceListenersSet: Set<MockPlayer> = new Set();
@@ -24,6 +24,10 @@ export class MockPlayer extends MockEntity implements Player {
 
     public get voiceListeners(): MockPlayer[] {
         return Array.from(this.voiceListenersSet.values());
+    }
+
+    public placeInVehicle(vehicle: MockVehicle, seat: VehicleSeat): void {
+        vehicle.setOccupant(seat, this);
     }
 
     public call(_eventName: string, ..._args: any[]): void {
@@ -45,10 +49,6 @@ export class MockPlayer extends MockEntity implements Player {
 
     public isStreamed(player: MockPlayer): boolean {
         return this.streamedPlayersSet.has(player);
-    }
-
-    public placeInVehicle(vehicle: MockVehicle, seat: VehicleSeat): void {
-        vehicle.setOccupant(seat, this);
     }
 }
 

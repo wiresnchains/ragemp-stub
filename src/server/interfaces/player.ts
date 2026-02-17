@@ -1,6 +1,5 @@
-import type { SharedPlayer, VehicleSeat } from 'ragemp-atlas/shared';
+import type { SharedPlayer } from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from './entity';
-import type { Vehicle } from './vehicle';
 
 export interface Player extends Entity, SharedPlayer {
     /**
@@ -34,26 +33,6 @@ export interface Player extends Entity, SharedPlayer {
     readonly socialClub: string;
 
     /**
-     * The vehicle that the player is currently sitting in.
-     */
-    readonly vehicle?: Vehicle;
-
-    /**
-     * The vehicle seat that the player is currently in.
-     */
-    readonly seat?: VehicleSeat;
-
-    /**
-     * Health of the player.
-     */
-    health: number;
-
-    /**
-     * Armour of the player.
-     */
-    armour: number;
-
-    /**
      * Calls the client-side event.
      * @param eventName Name of the event.
      * @param args List of parameters.
@@ -84,13 +63,6 @@ export interface Player extends Entity, SharedPlayer {
      * @param player Target player.
      */
     isStreamed(player: Player): boolean;
-
-    /**
-     * Places the current player in the given vehicle in the given seat.
-     * @param vehicle Target vehicle.
-     * @param seat Target seat.
-     */
-    placeInVehicle(vehicle: Vehicle, seat: VehicleSeat): void;
 }
 
 export interface PlayerPool extends EntityPool<Player> {
