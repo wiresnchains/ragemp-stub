@@ -28,6 +28,11 @@ export interface SharedVehicle extends SharedEntity {
     heading: number;
 
     /**
+     * Current steer angle of the vehicle.
+     */
+    steerAngle: number;
+
+    /**
      * Engine health of the vehicle.
      */
     engineHealth: number;

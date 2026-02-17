@@ -3,12 +3,9 @@ import type { Entity, EntityPool } from './entity';
 import type { Player } from './player';
 
 export interface Vehicle extends Entity, SharedVehicle {
-    readonly engineHealth: number;
-
-    /**
-     * Current steer angle of the vehicle.
-     */
     readonly steerAngle: number;
+
+    readonly engineHealth: number;
 
     /**
      * Whether or not the driver is pressing the brake.
@@ -29,6 +26,9 @@ export interface Vehicle extends Entity, SharedVehicle {
      */
     readonly velocity: Vector3;
 
+    /**
+     * A list of all players in the vehicle.
+     */
     readonly occupants: Player[];
 
     /**
@@ -36,8 +36,17 @@ export interface Vehicle extends Entity, SharedVehicle {
      */
     explode(): void;
 
+    /**
+     * Returns the player that is currently in the given seat.
+     * @param seat Target seat.
+     */
     getOccupant(seat: VehicleSeat): Player | undefined;
 
+    /**
+     * Places the given player in the given seat.
+     * @param seat Target seat.
+     * @param occupant Target player.
+     */
     setOccupant(seat: VehicleSeat, occupant: Player): void;
 
     /**

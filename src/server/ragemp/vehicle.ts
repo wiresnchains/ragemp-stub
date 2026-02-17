@@ -52,10 +52,6 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
         this.entity.rotation = new mp.Vector3(this.entity.rotation.x, this.entity.rotation.y, heading);
     }
 
-    public get steerAngle(): number {
-        return this.entity.steerAngle;
-    }
-
     public get areBrakesActive(): boolean {
         return this.entity.brake;
     }
@@ -75,6 +71,10 @@ export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
 
     public get occupants(): RagePlayer[] {
         return this.entity.getOccupants().map(RagePlayer.fromPlayer);
+    }
+
+    public get steerAngle(): number {
+        return this.entity.steerAngle;
     }
 
     public get engineHealth(): number {

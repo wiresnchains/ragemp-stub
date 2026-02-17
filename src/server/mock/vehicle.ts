@@ -20,9 +20,9 @@ import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';
 
 export class MockVehicle extends MockEntity implements Vehicle {
+    public readonly steerAngle: number = 0;
     public rotation: Vector3 = new Vector3();
 
-    public readonly steerAngle: number = 0;
     public readonly areBrakesActive: boolean = false;
     public readonly isHornActive: boolean = false;
     public readonly velocity: Vector3 = new Vector3();
