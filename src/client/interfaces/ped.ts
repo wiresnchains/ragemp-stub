@@ -1,4 +1,10 @@
-import type { PedComponentType, PedHeadOverlayType, PedPropType, Vector3 } from 'ragemp-atlas/shared';
+import type {
+    PedComponentType,
+    PedFaceFeatureType,
+    PedHeadOverlayType,
+    PedPropType,
+    Vector3,
+} from 'ragemp-atlas/shared';
 import type { Entity, EntityPool } from './entity';
 import type { PedBoneType, PedDeathType, PedFlagType } from '@/enums/ped';
 
@@ -99,16 +105,34 @@ export interface BasePed extends Entity {
 
     /**
      * Updates the given head overlay on the current ped.
+     *
+     * Visit [this page](https://wiki.rage.mp/wiki/Makeup_Colors) for all color indices.
      * @param overlayType Target head overlay.
      * @param index Target index.
+     * @param opacity Value ranging from 0.0 to 1.0.
+     * @param firstColor Target first color index.
+     * @param secondColor Target second color index.
      */
-    setHeadOverlay(overlayType: PedHeadOverlayType, index: number): number;
+    setHeadOverlay(
+        overlayType: PedHeadOverlayType,
+        index: number,
+        opacity: number,
+        firstColor: number,
+        secondColor: number
+    ): number;
 
     /**
      * Updates the given head blend values.
      * @param headBlend New head blend values.
      */
     setHeadBlend(headBlend: Partial<PedHeadBlend>): void;
+
+    /**
+     * Updates the face feature of the current ped.
+     * @param faceFeature Target feature.
+     * @param scale Value ranging from -1.0 to 1.0.
+     */
+    setFaceFeature(faceFeature: PedFaceFeatureType, scale: number): void;
 
     /**
      * Returns the drawable index of the given prop type.
@@ -161,6 +185,19 @@ export interface BasePed extends Entity {
     setRandomComponents(): void;
 
     /**
+     * Updates the eye color of the current ped.
+     * @param colorIndex Values ranging from 0 to 31.
+     */
+    setEyeColor(colorIndex: number): void;
+
+    /**
+     * Updates the hair color of the current ped.
+     * @param colorIndex Primary color fo the hair.
+     * @param highlightColorIndex Highlight color of the hair.
+     */
+    setHairColor(colorIndex: number, highlightColorIndex: number): void;
+
+    /**
      * Clears all tasks of the current ped.
      * @param instantly Whether or not to clear the tasks instantly.
      */
@@ -188,6 +225,22 @@ export interface BasePed extends Entity {
     clearBlood(): void;
 }
 
-export interface Ped extends BasePed {}
+export interface Ped extends BasePed {
+    /**
+     * Whether or not the ped is dynamic.
+     *
+     * A dynamic ped means that the ped can be damaged, killed, pushed, etc.
+     */
+    readonly isDynamic: boolean;
+}
 
-export interface PedPool extends EntityPool<Ped> {}
+export interface PedPool extends EntityPool<Ped> {
+    /**
+     * Spawns a new ped.
+     * @param model Target model ID or hash.
+     * @param position Position in the 3D world.
+     * @param heading Heading in the 3D world (alias for Z-axis of rotation).
+     * @param dimension Target dimension.
+     */
+    spawn(model: string | number, position: Vector3, heading: number, dimension: number): Ped;
+}
