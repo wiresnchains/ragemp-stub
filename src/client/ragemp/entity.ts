@@ -71,6 +71,15 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
         this.entity.rotation = new mp.Vector3(rotation.x, rotation.y, rotation.z);
     }
 
+    public get velocity(): Vector3 {
+        const rotation = this.entity.getVelocity();
+        return new Vector3(rotation.x, rotation.y, rotation.z);
+    }
+
+    public set velocity(velocity: Vector3) {
+        this.entity.setVelocity(velocity.x, velocity.y, velocity.z);
+    }
+
     public get visible(): boolean {
         return this.entity.isVisible();
     }

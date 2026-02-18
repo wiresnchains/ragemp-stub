@@ -19,6 +19,11 @@ export interface Entity extends SharedEntity {
     rotation: Vector3;
 
     /**
+     * Velocity of the entity.
+     */
+    velocity: Vector3;
+
+    /**
      * Whether or not the model of the entity is visible.
      */
     visible: boolean;

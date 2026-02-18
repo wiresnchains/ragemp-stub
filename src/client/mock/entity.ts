@@ -7,6 +7,7 @@ export class MockEntity extends SharedMockEntity<MockClientContainer> implements
     public readonly handle: number;
 
     public rotation: Vector3 = new Vector3();
+    public velocity: Vector3 = new Vector3();
     public visible: boolean = true;
 
     public constructor(container: MockClientContainer, id: number, remoteId: number, handle: number) {
