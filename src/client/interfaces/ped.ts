@@ -8,15 +8,6 @@ import type {
 import type { Entity, EntityPool } from './entity';
 import type { PedBoneType, PedDeathType, PedFlagType } from '@/enums/ped';
 
-export interface PedHeadBlend {
-    readonly shapeFirst: number;
-    readonly shapeSecond: number;
-    readonly skinFirst: number;
-    readonly skinSecond: number;
-    readonly shapeMix: number;
-    readonly skinMix: number;
-}
-
 /**
  * Incomplete.
  *
@@ -29,18 +20,6 @@ export interface BasePed extends Entity {
      * Whether or not the current ped can ragdoll.
      */
     readonly canRagdoll: boolean;
-
-    /**
-     * Head blend data of the ped.
-     *
-     * This object is immutable.
-     * It can only be updated using `setHeadBlend()` method.
-     *
-     * Only works with freemode models:
-     * - `mp_m_freemode_01`
-     * - `mp_f_freemode_01`
-     */
-    readonly headBlend: PedHeadBlend;
 
     /**
      * Maximal health of the current ped.
@@ -75,7 +54,7 @@ export interface BasePed extends Entity {
      * Returns the 3D coordinates of the given bone.
      * @param bone Target bone.
      */
-    get3dBoneCoords(bone: PedBoneType): Vector3;
+    get3dBoneCoords(bone: PedBoneType, offset?: Vector3): Vector3;
 
     /**
      * Returns the bone index of the given bone.
@@ -98,6 +77,13 @@ export interface BasePed extends Entity {
     getConfigFlag(flagType: PedFlagType): boolean;
 
     /**
+     * Enables/disables the given flag on the current ped.
+     * @param flagType Target flag.
+     * @param state Target state.
+     */
+    setConfigFlag(flagType: PedFlagType, state: boolean): void;
+
+    /**
      * Returns the index of the given head overlay on the current ped.
      * @param overlayType Target head overlay.
      */
@@ -107,6 +93,10 @@ export interface BasePed extends Entity {
      * Updates the given head overlay on the current ped.
      *
      * Visit [this page](https://wiki.rage.mp/wiki/Makeup_Colors) for all color indices.
+     *
+     * Only works with freemode models:
+     * - `mp_m_freemode_01`
+     * - `mp_f_freemode_01`
      * @param overlayType Target head overlay.
      * @param index Target index.
      * @param opacity Value ranging from 0.0 to 1.0.
@@ -119,16 +109,37 @@ export interface BasePed extends Entity {
         opacity: number,
         firstColor: number,
         secondColor: number
-    ): number;
+    ): void;
 
     /**
+     *
      * Updates the given head blend values.
-     * @param headBlend New head blend values.
+     *
+     * Only works with freemode models:
+     * - `mp_m_freemode_01`
+     * - `mp_f_freemode_01`
+     * @param shapeFirst
+     * @param shapeSecond
+     * @param skinFirst
+     * @param skinSecond
+     * @param shapeMix
+     * @param skinMix
      */
-    setHeadBlend(headBlend: Partial<PedHeadBlend>): void;
+    setHeadBlend(
+        shapeFirst: number,
+        shapeSecond: number,
+        skinFirst: number,
+        skinSecond: number,
+        shapeMix: number,
+        skinMix: number
+    ): void;
 
     /**
      * Updates the face feature of the current ped.
+     *
+     * Only works with freemode models:
+     * - `mp_m_freemode_01`
+     * - `mp_f_freemode_01`
      * @param faceFeature Target feature.
      * @param scale Value ranging from -1.0 to 1.0.
      */
@@ -186,12 +197,20 @@ export interface BasePed extends Entity {
 
     /**
      * Updates the eye color of the current ped.
+     *
+     * Only works with freemode models:
+     * - `mp_m_freemode_01`
+     * - `mp_f_freemode_01`
      * @param colorIndex Values ranging from 0 to 31.
      */
     setEyeColor(colorIndex: number): void;
 
     /**
      * Updates the hair color of the current ped.
+     *
+     * Only works with freemode models:
+     * - `mp_m_freemode_01`
+     * - `mp_f_freemode_01`
      * @param colorIndex Primary color fo the hair.
      * @param highlightColorIndex Highlight color of the hair.
      */
