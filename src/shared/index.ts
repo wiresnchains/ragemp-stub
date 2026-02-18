@@ -4,6 +4,7 @@ export * from './interfaces/player';
 export * from './interfaces/vehicle';
 
 export * from './enums/vehicle';
+export * from './enums/ped';
 
 export * from './mock/event';
 export * from './mock/entity';

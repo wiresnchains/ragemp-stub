@@ -17,7 +17,7 @@ import {
 } from 'ragemp-atlas/shared';
 import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
 import type { BasePed } from '@/interfaces/ped';
-import { RotationOrder } from '@/enums/rotation-order';
+import { RotationOrder } from '@/enums/vector';
 import { RageEntity, RageEntityPool } from './entity';
 
 export class RageVehicle extends RageEntity<VehicleMp> implements Vehicle {
