@@ -53,15 +53,6 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
         this.entity.position = new mp.Vector3(position.x, position.y, position.z);
     }
 
-    public get heading(): number {
-        return this.entity.rotation.z;
-    }
-
-    public set heading(heading: number) {
-        const rotation = this.entity.rotation;
-        this.entity.rotation = new mp.Vector3(rotation.x, rotation.y, heading);
-    }
-
     public get rotation(): Vector3 {
         const rotation = this.entity.rotation;
         return new Vector3(rotation.x, rotation.y, rotation.z);

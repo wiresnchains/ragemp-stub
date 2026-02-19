@@ -16,12 +16,29 @@ export class RageBasePed<TEntity extends PedMpBase = PedMpBase> extends RageEnti
         return this.entity.canRagdoll();
     }
 
+    public get heading(): number {
+        return this.entity.rotation.z;
+    }
+
+    public set heading(heading: number) {
+        const rotation = this.entity.rotation;
+        this.entity.rotation = new mp.Vector3(rotation.x, rotation.y, heading);
+    }
+
     public get money(): number {
         return this.entity.getMoney();
     }
 
     public set money(money: number) {
         this.entity.setMoney(money);
+    }
+
+    public get armor(): number {
+        return this.entity.getMoney();
+    }
+
+    public set armor(armor: number) {
+        this.entity.setArmour(armor);
     }
 
     public applyDamage(amount: number, includeArmor: boolean): void {
