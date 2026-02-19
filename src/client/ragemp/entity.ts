@@ -80,12 +80,16 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
         this.entity.setVelocity(velocity.x, velocity.y, velocity.z);
     }
 
-    public get visible(): boolean {
+    public get isVisible(): boolean {
         return this.entity.isVisible();
     }
 
-    public set visible(visible: boolean) {
-        this.entity.setVisible(visible, false);
+    public set isVisible(isVisible: boolean) {
+        this.entity.setVisible(isVisible, false);
+    }
+
+    public set isPositionFrozen(isPositionFrozen: boolean) {
+        this.entity.freezePosition(isPositionFrozen);
     }
 
     public dist(to: Vector3): number {
@@ -98,6 +102,10 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
 
     public destroy(): void {
         this.entity.destroy();
+    }
+
+    public setPositionFrozen(isFrozen: boolean): void {
+        this.entity.freezePosition(isFrozen);
     }
 }
 

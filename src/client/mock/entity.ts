@@ -8,13 +8,18 @@ export class MockEntity extends SharedMockEntity<MockClientContainer> implements
 
     public rotation: Vector3 = new Vector3();
     public velocity: Vector3 = new Vector3();
-    public visible: boolean = true;
+    public isVisible: boolean = true;
+    public isPositionFrozen: boolean = false;
 
     public constructor(container: MockClientContainer, id: number, remoteId: number, handle: number) {
         super(container, id);
 
         this.remoteId = remoteId;
         this.handle = handle;
+    }
+
+    public setPositionFrozen(isFrozen: boolean): void {
+        this.isPositionFrozen = isFrozen;
     }
 }
 

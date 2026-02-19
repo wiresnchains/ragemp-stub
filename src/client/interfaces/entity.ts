@@ -26,7 +26,13 @@ export interface Entity extends SharedEntity {
     /**
      * Whether or not the model of the entity is visible.
      */
-    visible: boolean;
+    isVisible: boolean;
+
+    /**
+     *
+     * @param isFrozen
+     */
+    setPositionFrozen(isFrozen: boolean): void;
 }
 
 export interface EntityPool<TEntity extends Entity = Entity> extends SharedEntityPool<TEntity> {
