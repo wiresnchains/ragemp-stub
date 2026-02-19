@@ -22,9 +22,21 @@ export interface BasePed extends Entity {
     readonly canRagdoll: boolean;
 
     /**
+     * Heading of the ped.
+     *
+     * Alias for the Z-axis of the rotation.
+     */
+    heading: number;
+
+    /**
      * Money of the current ped.
      */
     money: number;
+
+    /**
+     * Additional health (armor).
+     */
+    armor: number;
 
     /**
      * Applies damage to the current ped.
@@ -142,29 +154,29 @@ export interface BasePed extends Entity {
 
     /**
      * Returns the drawable index of the given prop type.
-     * @param prop Targer prop.
+     * @param propType Targer prop.
      */
-    getPropDrawable(prop: PedPropType): number;
+    getPropDrawable(propType: PedPropType): number;
 
     /**
      * Returns the texture index of the given prop type.
-     * @param prop Targer prop.
+     * @param propType Targer prop.
      */
-    getPropTexture(prop: PedPropType): number;
+    getPropTexture(propType: PedPropType): number;
 
     /**
      * Sets the drawable and texture indices of the given prop type.
-     * @param prop Targer prop.
+     * @param propType Targer prop.
      * @param drawableIndex Target drawable index.
      * @param textureIndex Target texture index.
      */
-    setProp(prop: PedPropType, drawableIndex: number, textureIndex: number): void;
+    setProp(propType: PedPropType, drawableIndex: number, textureIndex: number): void;
 
     /**
      * Removed the given prop from the ped.
      * @param prop Target prop.
      */
-    clearProp(prop: PedPropType): void;
+    clearProp(propType: PedPropType): void;
 
     /**
      * Clears all props from the ped.
@@ -178,12 +190,17 @@ export interface BasePed extends Entity {
 
     /**
      * Sets the given component for the current ped.
-     * @param component Target component.
+     * @param componentType Target component.
      * @param drawableIndex Target drawable index.
      * @param textureIndex Target texture index.
      * @param paletteIndex Target palette index.
      */
-    setComponent(component: PedComponentType, drawableIndex: number, textureIndex: number, paletteIndex: number): void;
+    setComponent(
+        componentType: PedComponentType,
+        drawableIndex: number,
+        textureIndex: number,
+        paletteIndex: number
+    ): void;
 
     /**
      * Dresses the ped in a random component variation.

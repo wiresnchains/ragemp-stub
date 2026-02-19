@@ -8,4 +8,6 @@ export interface ClientContainer {
     events: EventPool;
     peds: PedPool;
     vehicles: VehiclePool;
+
+    joaat(plainText: string): number;
 }
