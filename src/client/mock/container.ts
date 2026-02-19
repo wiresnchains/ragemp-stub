@@ -1,4 +1,4 @@
-import { createJoaatCache } from 'ragemp-stub/shared';
+import { createJoaatCache, joaat } from 'ragemp-stub/shared';
 import type { ClientContainer } from '@/interfaces/container';
 import { MockEventPool } from './event';
 import { MockGame } from './game';
@@ -9,7 +9,7 @@ export class MockClientContainer implements ClientContainer {
     public events: MockEventPool = new MockEventPool();
     public peds: MockPedPool = new MockPedPool(this);
 
-    private joaatCache: ReturnType<typeof createJoaatCache> = createJoaatCache();
+    private joaatCache: ReturnType<typeof createJoaatCache> = createJoaatCache(joaat);
 
     public joaat(plainText: string): number {
         return this.joaatCache.get(plainText);

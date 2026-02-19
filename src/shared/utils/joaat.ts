@@ -1,4 +1,4 @@
-export function joaat(plainText: string) {
+export function joaat(plainText: string): number {
     const lowerCase = plainText.toLowerCase();
 
     let hash = 0;
@@ -16,7 +16,7 @@ export function joaat(plainText: string) {
     return hash >>> 0;
 }
 
-export function createJoaatCache() {
+export function createJoaatCache(joaatFunc: (plainText: string) => number) {
     const cache: Map<string, number> = new Map();
 
     return {
@@ -27,7 +27,7 @@ export function createJoaatCache() {
                 return cached;
             }
 
-            const hash = joaat(plainText);
+            const hash = joaatFunc(plainText);
             cache.set(plainText, hash);
             return hash;
         },

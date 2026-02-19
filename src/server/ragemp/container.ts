@@ -9,7 +9,7 @@ export class RageServerContainer implements ServerContainer {
     public players: RagePlayerPool = new RagePlayerPool();
     public vehicles: RageVehiclePool = new RageVehiclePool();
 
-    private joaatCache: ReturnType<typeof createJoaatCache> = createJoaatCache();
+    private joaatCache: ReturnType<typeof createJoaatCache> = createJoaatCache(mp.joaat);
 
     public joaat(plainText: string): number {
         return this.joaatCache.get(plainText);

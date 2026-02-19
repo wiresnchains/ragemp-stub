@@ -11,7 +11,7 @@ export class RageClientContainer implements ClientContainer {
     public peds: RagePedPool = new RagePedPool();
     public vehicles: RageVehiclePool = new RageVehiclePool();
 
-    private joaatCache: ReturnType<typeof createJoaatCache> = createJoaatCache();
+    private joaatCache: ReturnType<typeof createJoaatCache> = createJoaatCache(mp.game.joaat);
 
     public joaat(plainText: string): number {
         return this.joaatCache.get(plainText);
