@@ -1,6 +1,6 @@
 export type SharedEventHandler = (...args: any[]) => any;
 
-export interface SharedEventPool<TEventHandler extends SharedEventHandler = SharedEventHandler> {
+export interface SharedEventPool<TEventHandler extends Function = SharedEventHandler> {
     /**
      * Registers an event listener for the given event name.
      * @param eventName The name of the event.
