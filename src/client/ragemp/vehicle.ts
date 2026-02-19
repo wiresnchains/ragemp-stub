@@ -14,7 +14,7 @@ import {
     VehicleTransmissionType,
     VehicleWindowTintType,
     type VehicleSpawnOptions,
-} from 'ragemp-atlas/shared';
+} from 'ragemp-stub/shared';
 import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
 import type { BasePed } from '@/interfaces/ped';
 import { RotationOrder } from '@/enums/vector';

@@ -1,4 +1,4 @@
-import type { SharedEntity, SharedEntityPool } from 'ragemp-atlas/shared';
+import type { SharedEntity, SharedEntityPool } from 'ragemp-stub/shared';
 
 export interface Entity extends SharedEntity {}
 

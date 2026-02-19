@@ -1,4 +1,4 @@
-import { createJoaatCache } from 'ragemp-atlas/shared';
+import { createJoaatCache } from 'ragemp-stub/shared';
 import type { ClientContainer } from '@/interfaces/container';
 import { RageEventPool } from './event';
 import { RageGame } from './game';

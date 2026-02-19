@@ -1,4 +1,4 @@
-import { isNumber, isString, isVector3, VehicleSeat } from 'ragemp-atlas/shared';
+import { isNumber, isString, isVector3, VehicleSeat } from 'ragemp-stub/shared';
 import type { Player, PlayerPool } from '@/interfaces/player';
 import { RageEntity, RageEntityPool } from './entity';
 import { RageVehicle } from './vehicle';

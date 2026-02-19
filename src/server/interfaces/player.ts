@@ -1,4 +1,4 @@
-import type { SharedPlayer } from 'ragemp-atlas/shared';
+import type { SharedPlayer } from 'ragemp-stub/shared';
 import type { Entity, EntityPool } from './entity';
 
 export interface Player extends Entity, SharedPlayer {

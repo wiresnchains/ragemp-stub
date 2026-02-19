@@ -1,6 +1,3 @@
-import type { BasePed, Ped, PedPool } from '@/interfaces/ped';
-import { RageEntity, RageEntityPool } from './entity';
-import type { PedBoneType, PedDeathType, PedFlagType } from '@/enums/ped';
 import {
     isString,
     joaat,
@@ -9,7 +6,10 @@ import {
     PedHeadOverlayType,
     PedPropType,
     Vector3,
-} from 'ragemp-atlas/shared';
+} from 'ragemp-stub/shared';
+import type { BasePed, Ped, PedPool } from '@/interfaces/ped';
+import type { PedBoneType, PedDeathType, PedFlagType } from '@/enums/ped';
+import { RageEntity, RageEntityPool } from './entity';
 
 export class RageBasePed<TEntity extends PedMpBase = PedMpBase> extends RageEntity<TEntity> implements BasePed {
     public get canRagdoll(): boolean {

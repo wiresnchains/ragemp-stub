@@ -1,4 +1,4 @@
-import { isNumber, SharedMockEntity, SharedMockEntityPool, Vector3 } from 'ragemp-atlas/shared';
+import { isNumber, SharedMockEntity, SharedMockEntityPool, Vector3 } from 'ragemp-stub/shared';
 import type { Entity, EntityPool } from '@/interfaces/entity';
 import type { MockClientContainer } from './container';
 

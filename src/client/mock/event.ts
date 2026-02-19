@@ -1,4 +1,4 @@
-import { SharedMockEventPool, type SharedEventHandler } from 'ragemp-atlas/shared';
+import { SharedMockEventPool, type SharedEventHandler } from 'ragemp-stub/shared';
 import type { EventPool } from '@/interfaces/event';
 
 export class MockEventPool extends SharedMockEventPool implements EventPool {

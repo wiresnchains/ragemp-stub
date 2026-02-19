@@ -1,4 +1,4 @@
-import type { SharedVehicle, SharedVehiclePool, VehicleSeat } from 'ragemp-atlas/shared';
+import type { SharedVehicle, SharedVehiclePool, VehicleSeat } from 'ragemp-stub/shared';
 import type { Entity, EntityPool } from './entity';
 import type { BasePed } from './ped';
 

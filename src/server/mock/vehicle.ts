@@ -14,7 +14,7 @@ import {
     VehicleModType,
     VehicleNumberPlateType,
     VehicleSeat,
-} from 'ragemp-atlas/shared';
+} from 'ragemp-stub/shared';
 import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
 import { MockEntity, MockEntityPool } from './entity';
 import type { MockPlayer } from './player';

@@ -1,4 +1,4 @@
-import type { SharedPlayer } from 'ragemp-atlas/shared';
+import type { SharedPlayer } from 'ragemp-stub/shared';
 import type { BasePed } from './ped';
 import type { EntityPool } from './entity';
 

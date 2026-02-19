@@ -1,4 +1,4 @@
-import type { SharedVehicle, SharedVehiclePool, Vector3, VehicleSeat } from 'ragemp-atlas/shared';
+import type { SharedVehicle, SharedVehiclePool, Vector3, VehicleSeat } from 'ragemp-stub/shared';
 import type { Entity, EntityPool } from './entity';
 import type { Player } from './player';
 

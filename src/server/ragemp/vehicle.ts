@@ -13,7 +13,7 @@ import {
     Vector3,
     Color,
     type VehicleSpawnOptions,
-} from 'ragemp-atlas/shared';
+} from 'ragemp-stub/shared';
 import type { Vehicle, VehiclePool } from '@/interfaces/vehicle';
 import { RageEntity, RageEntityPool } from './entity';
 import { RagePlayer } from './player';

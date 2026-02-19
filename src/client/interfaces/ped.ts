@@ -4,7 +4,7 @@ import type {
     PedHeadOverlayType,
     PedPropType,
     Vector3,
-} from 'ragemp-atlas/shared';
+} from 'ragemp-stub/shared';
 import type { Entity, EntityPool } from './entity';
 import type { PedBoneType, PedDeathType, PedFlagType } from '@/enums/ped';
 

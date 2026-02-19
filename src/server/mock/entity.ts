@@ -1,4 +1,4 @@
-import { SharedMockEntity, SharedMockEntityPool } from 'ragemp-atlas/shared';
+import { SharedMockEntity, SharedMockEntityPool } from 'ragemp-stub/shared';
 import type { Entity, EntityPool } from '@/interfaces/entity';
 import type { MockServerContainer } from './container';
 

@@ -1,4 +1,4 @@
-import type { SharedEventHandler, SharedEventPool } from 'ragemp-atlas/shared';
+import type { SharedEventHandler, SharedEventPool } from 'ragemp-stub/shared';
 
 export type EventHandler = SharedEventHandler;
 

@@ -1,4 +1,4 @@
-import { isHandler, isNumber, isVector3, Vector3, type ForEachHandler } from 'ragemp-atlas/shared';
+import { isHandler, isNumber, isVector3, Vector3, type ForEachHandler } from 'ragemp-stub/shared';
 import type { Entity, EntityPool } from '@/interfaces/entity';
 
 export class RageEntity<T extends EntityMp = EntityMp> implements Entity {

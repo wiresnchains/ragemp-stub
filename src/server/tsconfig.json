@@ -3,8 +3,8 @@
     "compilerOptions": {
         "paths": {
             "@/*": ["./*"],
-            "ragemp-atlas/shared": ["../shared"],
-            "ragemp-atlas/client": ["../client"]
+            "ragemp-stub/shared": ["../shared"],
+            "ragemp-stub/client": ["../client"]
         },
         "types": ["@ragempcommunity/types-server"]
     },

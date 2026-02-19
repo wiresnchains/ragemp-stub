@@ -1,4 +1,4 @@
-import type { SharedEventHandler, SharedEventPool } from 'ragemp-atlas/shared';
+import type { SharedEventHandler, SharedEventPool } from 'ragemp-stub/shared';
 import type { Player } from './player';
 
 export type EventHandler = SharedEventHandler & ((player: Player, ...args: any[]) => any);

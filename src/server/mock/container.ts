@@ -1,4 +1,4 @@
-import { createJoaatCache } from 'ragemp-atlas/shared';
+import { createJoaatCache } from 'ragemp-stub/shared';
 import type { ServerContainer } from '@/interfaces/container';
 import { MockEventPool } from './event';
 import { MockPlayer, MockPlayerPool } from './player';
