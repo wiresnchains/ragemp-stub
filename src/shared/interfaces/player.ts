@@ -11,16 +11,6 @@ export interface SharedPlayer extends SharedEntity {
     heading: number;
 
     /**
-     * Health of the player.
-     */
-    health: number;
-
-    /**
-     * Armour of the player.
-     */
-    armour: number;
-
-    /**
      * The vehicle that the player is currently sitting in.
      */
     readonly vehicle?: SharedVehicle;
