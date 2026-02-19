@@ -10,6 +10,8 @@ export class MockEntity extends SharedMockEntity<MockClientContainer> implements
     public velocity: Vector3 = new Vector3();
     public isVisible: boolean = true;
     public isPositionFrozen: boolean = false;
+    public health: number = 100;
+    public maxHealth: number = 100;
 
     public constructor(container: MockClientContainer, id: number, remoteId: number, handle: number) {
         super(container, id);

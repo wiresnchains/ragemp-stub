@@ -22,11 +22,6 @@ export interface BasePed extends Entity {
     readonly canRagdoll: boolean;
 
     /**
-     * Maximal health of the current ped.
-     */
-    maxHealth: number;
-
-    /**
      * Money of the current ped.
      */
     money: number;

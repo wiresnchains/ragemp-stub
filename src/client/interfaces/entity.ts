@@ -29,6 +29,16 @@ export interface Entity extends SharedEntity {
     isVisible: boolean;
 
     /**
+     * Whether or not the model of the entity is visible.
+     */
+    health: number;
+
+    /**
+     * Whether or not the model of the entity is visible.
+     */
+    maxHealth: number;
+
+    /**
      *
      * @param isFrozen
      */

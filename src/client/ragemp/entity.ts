@@ -92,6 +92,22 @@ export class RageEntity<T extends EntityMp = EntityMp> implements Entity {
         this.entity.freezePosition(isPositionFrozen);
     }
 
+    public get health(): number {
+        return this.entity.getHealth();
+    }
+
+    public set health(health: number) {
+        this.entity.setHealth(health);
+    }
+
+    public get maxHealth(): number {
+        return this.entity.getMaxHealth();
+    }
+
+    public set maxHealth(maxHealth: number) {
+        this.entity.setMaxHealth(maxHealth);
+    }
+
     public dist(to: Vector3): number {
         return this.entity.dist(new mp.Vector3(to.x, to.y, to.z));
     }

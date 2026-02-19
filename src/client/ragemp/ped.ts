@@ -16,14 +16,6 @@ export class RageBasePed<TEntity extends PedMpBase = PedMpBase> extends RageEnti
         return this.entity.canRagdoll();
     }
 
-    public get maxHealth(): number {
-        return this.entity.getMaxHealth();
-    }
-
-    public set maxHealth(maxHealth: number) {
-        this.entity.setMaxHealth(maxHealth);
-    }
-
     public get money(): number {
         return this.entity.getMoney();
     }
