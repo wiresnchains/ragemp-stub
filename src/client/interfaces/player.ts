@@ -2,7 +2,7 @@ import type { SharedPlayer } from 'ragemp-stub/shared';
 import { VoiceChatFxType } from '@/enums/voice-chat-fx';
 import type { BasePed } from './ped';
 import type { EntityPool } from './entity';
-import type { VoiceChatFx, VoiceChatFxSettingsMap } from './voice-chat-fx';
+import type { VoiceChatFx } from './voice-chat-fx';
 
 export interface Player extends BasePed, SharedPlayer {
     /**
@@ -20,26 +20,14 @@ export interface Player extends BasePed, SharedPlayer {
     /**
      * Whether or not voice chat is spatialized in the 3d world.
      */
-    enable3dVoiceChat: boolean;
+    is3dVoiceChatEnabled: boolean;
 
     /**
      * Creates a voice chat effect handle.
      * @param fxType
      * @param priority
      */
-    createVoiceChatFx<T extends VoiceChatFxType>(fxType: T, priority?: number): VoiceChatFx<VoiceChatFxSettingsMap[T]>;
-
-    /**
-     * Applies a given voice chat effect.
-     * @param fx Effect created using `createVoiceChatFx`
-     */
-    applyVoiceFx<T extends VoiceChatFxType>(fx: VoiceChatFx<VoiceChatFxSettingsMap[T]>): void;
-
-    /**
-     * Removes a given voice chat effect.
-     * @param fx Effect created using `createVoiceChatFx`
-     */
-    removeVoiceFx<T extends VoiceChatFxType>(fx: VoiceChatFx<VoiceChatFxSettingsMap[T]>): void;
+    createVoiceChatFx<T extends VoiceChatFxType>(fxType: T, priority?: number): VoiceChatFx<T>;
 }
 
 export interface PlayerPool extends EntityPool<Player> {

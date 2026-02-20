@@ -1,10 +1,36 @@
 import type { VoiceChatFxType } from '@/enums/voice-chat-fx';
 
-export interface VoiceChatFx<TSettings> {
+export interface VoiceChatFx<
+    T extends VoiceChatFxType,
+    TSettings extends VoiceChatFxSettingsMap[T] = VoiceChatFxSettingsMap[T],
+> {
+    /**
+     * Internal handle for the effect.
+     */
     handle: number;
+
+    /**
+     * Effect priority.
+     *
+     * Defines order of the effects on the voice effect stack.
+     */
     priority: number;
 
-    applySettings(settings: TSettings): void;
+    /**
+     * Applies the voice effect settings
+     * @param settings Voice effect settings
+     */
+    apply(settings: TSettings): void;
+
+    /**
+     * Removes the voice effect from the effect stack.
+     */
+    remove(): void;
+
+    /**
+     * Resets the voice effect.
+     */
+    reset(): void;
 }
 
 export type VoiceChatFxSettingsMap = {
