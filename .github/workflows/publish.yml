@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    if: github.event.release.prerelease == false
     runs-on: ubuntu-latest
     permissions:
       contents: read
