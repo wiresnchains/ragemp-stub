@@ -92,6 +92,10 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
         this.entity.disableVoiceTo(player.entity);
     }
 
+    public kick(): void {
+        this.entity.kick('');
+    }
+
     public isStreamed(player: RagePlayer): boolean {
         return this.entity.isStreamed(player.entity);
     }

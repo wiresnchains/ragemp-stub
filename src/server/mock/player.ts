@@ -47,6 +47,10 @@ export class MockPlayer extends MockEntity implements Player {
         this.voiceListenersSet.delete(player);
     }
 
+    public kick(): void {
+        this.destroy();
+    }
+
     public isStreamed(player: MockPlayer): boolean {
         return this.streamedPlayersSet.has(player);
     }

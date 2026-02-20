@@ -59,6 +59,11 @@ export interface Player extends Entity, SharedPlayer {
     endVoiceStreamFor(player: Player): void;
 
     /**
+     * Kicks the current player from the server.
+     */
+    kick(): void;
+
+    /**
      * Checks whether or not the given player is currently being streamed to the current player.
      * @param player Target player.
      */
