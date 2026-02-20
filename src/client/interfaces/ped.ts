@@ -5,8 +5,8 @@ import type {
     PedPropType,
     Vector3,
 } from 'ragemp-stub/shared';
-import type { Entity, EntityPool } from './entity';
 import type { PedBoneType, PedDeathType, PedFlagType } from '@/enums/ped';
+import type { Entity, EntityPool } from './entity';
 
 /**
  * Incomplete.
