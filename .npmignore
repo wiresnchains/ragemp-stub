@@ -1,7 +1,9 @@
 .git
+.github
 src
 tests
 .gitignore
+.prettierignore
 .prettierrc
 README.md
 tsconfig.json
