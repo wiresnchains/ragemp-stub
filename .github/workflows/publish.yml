@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  setup:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -15,32 +15,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: npm ci
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: node-modules
-          path: node_modules/
-          include-hidden-files: true
-
-  test:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: node-modules
-          path: node_modules/
-
       - run: npm run test
 
   build:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -49,11 +26,7 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: node-modules
-          path: node_modules/
-
+      - run: npm ci
       - run: npm run build
       
       - uses: actions/upload-artifact@v4
