@@ -8,6 +8,7 @@ export default defineConfig({
         web: './src/web/index.ts',
     },
     outDir: './dist',
+    target: 'es6',
     format: ['esm', 'cjs'],
     dts: { build: true },
     clean: true,

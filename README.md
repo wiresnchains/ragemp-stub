@@ -1,5 +1,7 @@
 # ragemp-stub
 
+[![Publish npm package](https://github.com/wiresnchains/ragemp-stub/actions/workflows/publish.yml/badge.svg)](https://github.com/wiresnchains/ragemp-stub/actions/workflows/publish.yml)
+
 An abstraction layer over [RAGE:MP API](https://wiki.rage.mp/wiki/Main_Page) that allows you to mock objects for unit testing.
 
 ## Quickstart

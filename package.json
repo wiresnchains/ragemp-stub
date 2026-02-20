@@ -1,6 +1,6 @@
 {
     "name": "ragemp-stub",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -40,36 +40,40 @@
     },
     "exports": {
         "./shared": {
-            "import": "./dist/shared.js",
-            "require": "./dist/shared.cjs",
-            "types": {
-                "import": "./dist/shared.d.mts",
-                "require": "./dist/shared.d.cts"
-            }
+            "import": "./dist/shared.mjs",
+            "require": "./dist/shared.cjs"
         },
         "./server": {
-            "import": "./dist/server.js",
-            "require": "./dist/server.cjs",
-            "types": {
-                "import": "./dist/server.d.mts",
-                "require": "./dist/server.d.cts"
-            }
+            "import": "./dist/server.mjs",
+            "require": "./dist/server.cjs"
         },
         "./client": {
-            "import": "./dist/client.js",
-            "require": "./dist/client.cjs",
-            "types": {
-                "import": "./dist/client.d.mts",
-                "require": "./dist/client.d.cts"
-            }
+            "import": "./dist/client.mjs",
+            "require": "./dist/client.cjs"
         },
         "./web": {
-            "import": "./dist/web.js",
-            "require": "./dist/web.cjs",
-            "types": {
-                "import": "./dist/web.d.mts",
-                "require": "./dist/web.d.cts"
-            }
+            "import": "./dist/web.mjs",
+            "require": "./dist/web.cjs"
+        }
+    },
+    "typesVersions": {
+        "*": {
+            "shared": [
+                "./dist/shared.d.cts",
+                "./dist/shared.d.mts"
+            ],
+            "server": [
+                "./dist/server.d.cts",
+                "./dist/server.d.mts"
+            ],
+            "client": [
+                "./dist/client.d.cts",
+                "./dist/client.d.mts"
+            ],
+            "web": [
+                "./dist/web.d.cts",
+                "./dist/web.d.mts"
+            ]
         }
     }
 }
