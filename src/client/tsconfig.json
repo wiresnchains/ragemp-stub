@@ -1,0 +1,13 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "@/*": ["./*"],
+            "ragemp-stub/shared": ["../shared"],
+            "ragemp-stub/server": ["../server"],
+            "ragemp-stub/web": ["../web"]
+        },
+        "types": ["@ragempcommunity/types-client"]
+    },
+    "include": ["./**/*.ts"]
+}

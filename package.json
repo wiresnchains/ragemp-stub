@@ -1,0 +1,75 @@
+{
+    "name": "ragemp-stub",
+    "version": "1.0.0",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wiresnchains/ragemp-stub.git"
+    },
+    "bugs": {
+        "url": "https://github.com/wiresnchains/ragemp-stub/issues"
+    },
+    "homepage": "https://github.com/wiresnchains/ragemp-stub#readme",
+    "keywords": [
+        "ragemp",
+        "gta5",
+        "gta",
+        "rage",
+        "mock",
+        "test",
+        "abtraction"
+    ],
+    "type": "module",
+    "scripts": {
+        "build": "tsdown",
+        "typecheck": "tsc -b",
+        "typecheck:watch": "tsc -b -w",
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "devDependencies": {
+        "tsdown": "0.20.3",
+        "typescript": "5.9.3",
+        "vite-tsconfig-paths": "6.1.1",
+        "vitest": "4.0.18"
+    },
+    "dependencies": {
+        "@ragempcommunity/types-cef": "2.1.9",
+        "@ragempcommunity/types-client": "2.1.9",
+        "@ragempcommunity/types-server": "2.1.9"
+    },
+    "exports": {
+        "./shared": {
+            "import": "./dist/shared.js",
+            "require": "./dist/shared.cjs",
+            "types": {
+                "import": "./dist/shared.d.mts",
+                "require": "./dist/shared.d.cts"
+            }
+        },
+        "./server": {
+            "import": "./dist/server.js",
+            "require": "./dist/server.cjs",
+            "types": {
+                "import": "./dist/server.d.mts",
+                "require": "./dist/server.d.cts"
+            }
+        },
+        "./client": {
+            "import": "./dist/client.js",
+            "require": "./dist/client.cjs",
+            "types": {
+                "import": "./dist/client.d.mts",
+                "require": "./dist/client.d.cts"
+            }
+        },
+        "./web": {
+            "import": "./dist/web.js",
+            "require": "./dist/web.cjs",
+            "types": {
+                "import": "./dist/web.d.mts",
+                "require": "./dist/web.d.cts"
+            }
+        }
+    }
+}

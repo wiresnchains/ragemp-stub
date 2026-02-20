@@ -1,0 +1,9 @@
+import { SharedMockEntity, SharedMockEntityPool } from 'ragemp-stub/shared';
+import type { Entity, EntityPool } from '@/interfaces/entity';
+import type { MockServerContainer } from './container';
+
+export class MockEntity extends SharedMockEntity<MockServerContainer> implements Entity {}
+
+export class MockEntityPool<TEntity extends MockEntity = MockEntity>
+    extends SharedMockEntityPool<MockServerContainer, TEntity>
+    implements EntityPool<TEntity> {}

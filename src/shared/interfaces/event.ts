@@ -1,0 +1,23 @@
+export type SharedEventHandler = (...args: any[]) => any;
+
+export interface SharedEventPool<TEventHandler extends Function = SharedEventHandler> {
+    /**
+     * Registers an event listener for the given event name.
+     * @param eventName The name of the event.
+     * @param handler The handler that is going to be called when the event is triggered.
+     */
+    add(eventName: string, handler: TEventHandler): void;
+
+    /**
+     * Calls an event listener for the given event name.
+     * @param eventName The name of the event.
+     * @param args Event parameters.
+     */
+    call(eventName: string, ...args: any[]): void;
+
+    /**
+     * Unregisters the given event.
+     * @param eventName The name of the event.
+     */
+    remove(eventName: string): void;
+}

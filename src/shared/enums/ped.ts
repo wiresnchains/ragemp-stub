@@ -1,0 +1,61 @@
+export enum PedPropType {
+    HAT = 0,
+    GLASSES = 1,
+    EAR = 2,
+    WATCH = 6,
+    BRACELET = 7,
+}
+
+export enum PedComponentType {
+    HEAD,
+    MASK,
+    HAIR_STYLE,
+    TORSO,
+    LEGS,
+    BAG,
+    SHOES,
+    ACCESSORY,
+    UNDERSHIRT,
+    BODY_ARMOR,
+    DECAL,
+    TOP,
+}
+
+export enum PedHeadOverlayType {
+    BLEMISH = 0,
+    FACIAL_HAIR = 1,
+    EYEBROW = 2,
+    AGEING = 3,
+    MAKEUP = 4,
+    BLUSH = 5,
+    COMPLEXION = 6,
+    SUN_DAMAGE = 7,
+    LIPSTICK = 8,
+    MOLE_FRECKLE = 9,
+    CHEST_HAIR = 10,
+    BODY_BLEMISH = 11,
+    ADD_BODY_BLEMISH = 12,
+}
+
+export enum PedFaceFeatureType {
+    NOSE_WIDTH = 0,
+    NOSE_HEIGHT = 1,
+    NOSE_LENGTH = 2,
+    NOSE_BRIDGE = 3,
+    NOSE_TIP = 4,
+    NOSE_BRIDGE_SHIFT = 5,
+    BROW_HEIGHT = 6,
+    BROW_WIDTH = 7,
+    CHEEKBONE_HEIGHT = 8,
+    CHEEKBONE_WIDTH = 9,
+    CHEEKS_WIDTH = 10,
+    EYES = 11,
+    LIPS = 12,
+    JAW_WIDTH = 13,
+    JAW_HEIGHT = 14,
+    CHIN_LENGTH = 15,
+    CHIN_POSITION = 16,
+    CHIN_WIDTH = 17,
+    CHIN_SHAPE = 18,
+    NECK_WIDTH = 19,
+}

@@ -1,0 +1,9 @@
+.git
+src
+.gitignore
+.prettierrc
+README.md
+tsconfig.json
+tsdown.config.ts
+.DS_Store
+*.tsbuildinfo
