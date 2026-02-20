@@ -33,6 +33,16 @@ export interface Player extends Entity, SharedPlayer {
     readonly socialClub: string;
 
     /**
+     * Health of the current player.
+     */
+    health: number;
+
+    /**
+     * Armor of the current player.
+     */
+    armor: number;
+
+    /**
      * Calls the client-side event.
      * @param eventName Name of the event.
      * @param args List of parameters.

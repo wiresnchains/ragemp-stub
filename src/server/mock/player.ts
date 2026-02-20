@@ -8,7 +8,7 @@ export class MockPlayer extends MockEntity implements Player {
     public vehicle?: MockVehicle;
     public seat?: VehicleSeat;
     public health: number = 100;
-    public armour: number = 0;
+    public armor: number = 0;
 
     public readonly ip: string = '127.0.0.1';
     public readonly ping: number = 0;

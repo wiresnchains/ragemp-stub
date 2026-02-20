@@ -68,12 +68,12 @@ export class RagePlayer extends RageEntity<PlayerMp> implements Player {
         this.entity.health = health;
     }
 
-    public get armour() {
+    public get armor() {
         return this.entity.armour;
     }
 
-    public set armour(armour: number) {
-        this.entity.armour = armour;
+    public set armor(armor: number) {
+        this.entity.armour = armor;
     }
 
     public call(eventName: string, ...args: any[]): void {
